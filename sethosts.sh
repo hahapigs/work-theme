@@ -10,7 +10,11 @@ ip_address=$(nslookup raw.githubusercontent.com | grep -Eo '[0-9]{1,3}\.[0-9]{1,
 
 # 将 IP 地址写入 /private/etc/hosts 文件
 echo "将 IP 地址写入 /private/etc/hosts 文件..."
-echo "$ip_address raw.githubusercontent.com" | sudo tee -a /private/etc/hosts > /dev/null
+# 如果需要将所有的 IP 地址都写入，可以使用循环
+for ip in $ip_address; do
+    echo "$ip raw.githubusercontent.com" | sudo tee -a /private/etc/hosts > /dev/null
+done
+
 
 # 移除网络中的 DNS 设置
 echo "移除网络中的 DNS 设置..."
