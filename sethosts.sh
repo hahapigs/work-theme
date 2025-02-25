@@ -2,7 +2,7 @@
 
 # 设置 DNS 为 8.8.8.8 和 4.4.4.4
 echo "设置 DNS 为 8.8.8.8 和 4.4.4.4..."
-networksetup -setdnsservers Wi-Fi 8.8.8.8 4.4.4.4
+sudo networksetup -setdnsservers Wi-Fi 8.8.8.8 4.4.4.4
 
 # 获取 raw.githubusercontent.com 的 IP 地址
 echo "获取 raw.githubusercontent.com 的 IP 地址..."
@@ -14,7 +14,7 @@ echo "$ip_address raw.githubusercontent.com" | sudo tee -a /private/etc/hosts > 
 
 # 移除网络中的 DNS 设置
 echo "移除网络中的 DNS 设置..."
-networksetup -setdnsservers Wi-Fi empty
+sudo networksetup -setdnsservers Wi-Fi empty
 
 # 测试访问 raw.githubusercontent.com
 echo "测试访问 raw.githubusercontent.com..."
