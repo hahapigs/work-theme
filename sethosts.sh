@@ -6,7 +6,7 @@ sudo networksetup -setdnsservers Wi-Fi 8.8.8.8 4.4.4.4
 
 # 获取 raw.githubusercontent.com 的 IP 地址
 echo "获取 raw.githubusercontent.com 的 IP 地址..."
-ip_address=$(nslookup raw.githubusercontent.com | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | tail -n 1)
+ip_address=$(nslookup raw.githubusercontent.com | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | tail -n 4)
 
 # 将 IP 地址写入 /private/etc/hosts 文件
 echo "将 IP 地址写入 /private/etc/hosts 文件..."
