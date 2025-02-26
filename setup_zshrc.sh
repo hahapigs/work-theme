@@ -34,19 +34,19 @@ else
 fi
 
 # ========== 第一部分：处理 .zshrc 文件 ==========
-target_file="$HOME/.zshrc"
-github_zshrc="https://raw.githubusercontent.com/hahapigs/work-theme/main/.zshrc"
+TARGET_FILE="$HOME/.zshrc"
+GITHUB_ZSHRC="https://raw.githubusercontent.com/hahapigs/work-theme/main/.zshrc"
 
 # 检测文件是否存在并处理
-if [ -f "$target_file" ]; then
-  echo "检测到已存在 $target_file 文件"
+if [ -f "$TARGET_FILE" ]; then
+  echo "检测到已存在 $TARGET_FILE 文件"
   read -p "请选择操作：[B]备份后下载/[O]直接覆盖/[Q]取消 (B/O/Q) " action
   
   case $action in
     [Bb]*) 
       # 生成带时间戳的备份文件
-      backup_file="$target_file.bak.$(date +%Y%m%d%H%M%S)"
-      cp -v "$target_file" "$backup_file"
+      backup_file="$TARGET_FILE.bak.$(date +%Y%m%d%H%M%S)"
+      cp -v "$TARGET_FILE" "$backup_file"
       echo "已备份原文件至: $backup_file"
       ;;
     [Oo]*) 
@@ -65,13 +65,13 @@ fi
 
 # 下载文件并检查结果
 echo "正在从 GitHub 下载 .zshrc..."
-if ! curl -sfL "$github_zshrc" -o "$target_file"; then
+if ! curl -sfL "$GITHUB_ZSHRC" -o "$TARGET_FILE"; then
   echo "错误：文件下载失败，请检查以下可能："
   echo "1. 网络连接是否正常"
-  echo "2. GitHub 文件地址是否正确: $github_zshrc"
+  echo "2. GitHub 文件地址是否正确: $GITHUB_ZSHRC"
   exit 1
 fi
-echo "文件已成功下载至: $target_file"
+echo "文件已成功下载至: $TARGET_FILE"
 
 # ========== 第二部分：验证 fzf 安装 ==========
 echo "\n验证 fzf 安装..."
