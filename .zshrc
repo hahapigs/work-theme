@@ -160,6 +160,10 @@ zinit snippet OMZP::dash/dash.plugin.zsh
 # zinit ice wait"1" lucid
 # zinit light romkatv/zsh-defer
 
+# 延迟加载 fzf
+zinit ice wait"0" lucid
+zinit light junegunn/fzf
+
 # 延迟加载 fzf-tab 补全
 zinit ice wait"0" lucid
 zinit light Aloxaf/fzf-tab
