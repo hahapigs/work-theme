@@ -7,30 +7,27 @@ ZINIT_DIR="$(brew --prefix zinit)"
 # autojump
 AUTOJUMP_DIR="$(brew --prefix autojump)"
 # lsd
-LSD="$(brew --prefix lsd)"
+LSD_DIR="$(brew --prefix lsd)"
 
 # 检测路径是否存在并安装
-if [ ! -d "$ZINIT_DIR" ]; then
+if [ -d "$ZINIT_DIR" ]; then
   echo "✅ zinit 已安装"
-  exit 0
 else
   echo "❌ zinit 未安装"
   exit 1
 fi
 
 # 检测路径是否存在并安装
-if [ ! -d "$AUTOJUMP_DIR" ]; then
+if [ -d "$AUTOJUMP_DIR" ]; then
   echo "✅ autojump 已安装"
-  exit 0
 else
   echo "❌ autojump 未安装"
   exit 1
 fi
 
 # 检测路径是否存在并安装
-if [ ! -d "$LSD_DIR" ]; then
+if [ -d "$LSD_DIR" ]; then
   echo "✅ lsd 已安装"
-  exit 0
 else
   echo "❌ lsd 未安装"
   exit 1
@@ -77,12 +74,12 @@ fi
 echo "文件已成功下载至: $target_file"
 
 # ========== 第二部分：验证 fzf 安装 ==========
-echo -e "\n验证 fzf 安装..."
+echo "\n验证 fzf 安装..."
 if ! command -v fzf &> /dev/null; then
   echo "检测到 fzf 未安装"
   
   # 定义可能的安装脚本路径
-  install_script="${ZINIT[PLUGINS_DIR]}/junegunn---fzf/install"
+  install_script="$HOME/.local/share/zinit/plugins/junegunn---fzf/install"
   
   # 检查安装脚本是否存在
   if [ ! -f "$install_script" ]; then
@@ -112,5 +109,5 @@ else
   echo "fzf 已正确安装：$(which fzf)"
 fi
 
-echo -e "\n所有操作已完成！建议执行以下命令："
-echo "source ~/.zshrc   # 立即生效新配置"
+echo "\n所有操作已完成！建议执行以下命令："
+echo "source ~/.zshrc"
