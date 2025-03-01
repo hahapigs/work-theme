@@ -107,6 +107,7 @@
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     per_directory_history   # Oh My Zsh per-directory-history local/global indicator
     # cpu_arch              # CPU architecture
+    custom_fortune
     time                    # current time
     # =========================[ Line #2 ]=========================
     newline
@@ -585,6 +586,22 @@
   # typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_VISUAL_IDENTIFIER_EXPANSION='⭐'
   # Custom prefix.
   # typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_PREFIX='took '
+
+  ###################[ custom_fortune: idiom of the fortune command ]###################
+  # Background idiom color.
+  typeset -g POWERLEVEL9K_CUSTOM_FORTUNE_FOREGROUND=0
+  typeset -g POWERLEVEL9K_CUSTOM_FORTUNE_BACKGROUND=135
+  # 自定义提示段
+  typeset -g POWERLEVEL9K_CUSTOM_FORTUNE="custom_fortune"
+  # 还可以使用python脚本来显示，例如：content=$(python3 ~/poem.py)
+  function custom_fortune() {
+    local content
+    if [[ $+commands[fortune] ]] &&  content=$(fortune ~/myfortunes); then
+      echo "$content \uf02d"
+    else
+      echo "error \uf119"
+    fi
+  }
 
   #######################[ background_jobs: presence of background jobs ]#######################
   # Background jobs color.
@@ -1797,12 +1814,7 @@
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_example() {
-    local content
-    if (( $+commands[fortune] )) && content=$(fortune ~/myfortunes); then
-      p10k segment -b 1 -f 3 -i "${content}" -t ''
-    else
-      p10k segment -b 1 -f 3 -i '出错了！' -t ' '  # \uF31A  
-    fi
+    p10k segment -b 1 -f 3 -i ' ' -t $'\uF31A' # 
   }
 
   # function prompt_example() {

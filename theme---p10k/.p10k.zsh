@@ -1797,22 +1797,8 @@
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_example() {
-    local content
-    if (( $+commands[fortune] )) && content=$(fortune ~/myfortunes); then
-        p10k segment -b 1 -f 3 -i "${content}" -t ''
-    else
-        p10k segment -b 1 -f 3 -i '出错了！' -t ' '
-    fi
+    p10k segment -b 1 -f 3 -i ' ' -t $'\uF31A' # 
   }
-
-  # function prompt_example() {
-  #   local content="$(python3 ~/poem.py)"  # 调用函数获取古诗内容
-  #   if [[ -n "$content" ]]; then
-  #       p10k segment -b 1 -f 3 -i '' -t "$content"
-  #   else
-  #       p10k segment -b 1 -f 3 -i ' ' -t "出错了！"
-  #   fi
-  # }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
   # is to generate the prompt segment for display in instant prompt. See
