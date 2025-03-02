@@ -83,8 +83,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git sudo cp copypath z)
 
-# source $ZSH/oh-my-zsh.sh
-source ~/.bash_profile
+## source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -131,9 +130,9 @@ source /usr/local/opt/zinit/zinit.zsh
 zinit snippet OMZL::git.zsh
 zinit snippet OMZL::cli.zsh
 zinit snippet OMZL::history.zsh
+zinit snippet OMZL::clipboard.zsh
 zinit snippet OMZL::completion.zsh
 zinit snippet OMZL::key-bindings.ZSH
-zinit snippet OMZL::theme-and-appearance.zsh
 zinit snippet OMZL::directories.zsh
 
 # 延迟加载 git 插件
@@ -196,7 +195,9 @@ fi
 zinit ice depth"1" atload"source ~/.p10k.zsh"
 zinit light romkatv/powerlevel10k
 
-setopt sharehistory
+# setopt sharehistory
+
+source ~/.bash_profile
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -207,6 +208,7 @@ setopt sharehistory
 # z
 # [ -f /usr/local/etc/profile.d/z.sh  ] && . /usr/local/etc/profile.d/z.sh
 
+[[ -f /usr/local/bin/broot  ]] && source /Users/zhaohongliang/.config/broot/launcher/bash/br
+
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
-
