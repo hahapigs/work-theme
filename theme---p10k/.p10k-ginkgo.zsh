@@ -107,7 +107,7 @@
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     per_directory_history   # Oh My Zsh per-directory-history local/global indicator
     # cpu_arch              # CPU architecture
-    custom_fortune
+    custom_poem
     time                    # current time
     # =========================[ Line #2 ]=========================
     newline
@@ -588,16 +588,16 @@
   # Custom prefix.
   # typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_PREFIX='took '
 
-  ###################[ custom_fortune: idiom of the fortune command ]###################
+  ###################[ custom_poem: idiom of the fortune command ]###################
   # Background idiom color.
-  typeset -g POWERLEVEL9K_CUSTOM_FORTUNE_FOREGROUND=233
-  typeset -g POWERLEVEL9K_CUSTOM_FORTUNE_BACKGROUND=154
+  typeset -g POWERLEVEL9K_CUSTOM_POEM_FOREGROUND=233
+  typeset -g POWERLEVEL9K_CUSTOM_POEM_BACKGROUND=154
   # 自定义提示段
-  typeset -g POWERLEVEL9K_CUSTOM_FORTUNE="custom_fortune"
-  # 还可以使用python脚本来显示，例如：content=$(python3 ~/poem.py)
-  function custom_fortune() {
+  typeset -g POWERLEVEL9K_CUSTOM_POEM="custom_poem"
+  # 还可以使用fortune来显示，例如：content=$(fortune ~/idiom)
+  function custom_poem() {
     local content
-    if [[ $+commands[fortune] ]] &&  content=$(fortune ~/myfortunes); then
+    if [[ $+commands[python3] ]] && content=$(python3 ~/GitHub/work-theme/theme---p10k/poem.py); then
       echo "$content \uf02d"
     else
       echo "error \uf119"
