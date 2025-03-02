@@ -597,7 +597,7 @@
   # 还可以使用python脚本来显示，例如：content=$(python3 ~/poem.py)
   function custom_idiom() {
     local content
-    if [[ $+commands[fortune] ]] &&  content=$(fortune ~/GitHub/work-theme/theme---p10k/idiom); then
+    if [[ $+commands[fortune] ]] && content=$(fortune ~/GitHub/work-theme/theme---p10k/idiom); then
       echo "$content \uf02d"
     else
       echo "error \uf119"
