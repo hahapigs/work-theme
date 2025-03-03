@@ -3,15 +3,15 @@ set -e # 脚本执行出错时自动退出
 
 # ========== 预处理：检测插件安装情况 ==========
 # zinit
-ZINIT_DIR="$(brew --prefix zinit)"
+zinit_dir="$(brew --prefix zinit)"
 # autojump
-AUTOJUMP_DIR="$(brew --prefix autojump)"
+autojump_dir="$(brew --prefix autojump)"
 # lsd
-LSD_DIR="$(brew --prefix lsd)"
+lsd_dir="$(brew --prefix lsd)"
 # 检测插件安装情况
 function check_pre_install() {
   # 检测路径是否存在并安装
-  if [ -d "$ZINIT_DIR" ]; then
+  if [ -d "$zinit_dir" ]; then
     echo "✅ zinit 已安装"
   else
     echo "❌ zinit 未安装"
@@ -19,7 +19,7 @@ function check_pre_install() {
   fi
   
   # 检测路径是否存在并安装
-  if [ -d "$AUTOJUMP_DIR" ]; then
+  if [ -d "$autojump_dir" ]; then
     echo "✅ autojump 已安装"
   else
     echo "❌ autojump 未安装"
@@ -27,7 +27,7 @@ function check_pre_install() {
   fi
   
   # 检测路径是否存在并安装
-  if [ -d "$LSD_DIR" ]; then
+  if [ -d "$lsd_dir" ]; then
     echo "✅ lsd 已安装"
   else
     echo "❌ lsd 未安装"
@@ -37,13 +37,10 @@ function check_pre_install() {
 
 
 # ========== 第一部分：处理 .zshrc 文件 ==========
-ZSHRC_FILE="$HOME/.zshrc"
-GITHUB_ZSHRC="https://raw.githubusercontent.com/hahapigs/work-theme/main/.zshrc"
+target_file="$HOME/.zshrc"
+source_url="https://raw.githubusercontent.com/hahapigs/work-theme/main/.zshrc"
 # 下载配置
 function download_conf() {
-  local target_file=$1
-  local github_url=$2 
-
   # 检测文件是否存在并处理
   if [ -f "$target_file" ]; then
     echo "检测到已存在 $target_file 文件"
@@ -72,10 +69,10 @@ function download_conf() {
 
   # 下载文件并检查结果
   echo "正在从 GitHub 下载文件"
-  if ! curl -sfL "$github_url" -o "$target_file"; then
+  if ! curl -sfL "$source_url" -o "$target_file"; then
     echo "错误：文件下载失败，请检查以下可能："
     echo "1. 网络连接是否正常"
-    echo "2. GitHub 文件地址是否正确: $github_url"
+    echo "2. GitHub 文件地址是否正确: $source_url"
     exit 1
   fi
   echo "文件已成功下载至: $target_file"
@@ -84,26 +81,26 @@ function download_conf() {
 
 # ========== 第二部分：验证 fzf 安装 ==========
 # 定义可能的安装脚本路径
-FZF_HOME="$HOME/.local/share/zinit/plugins/junegunn---fzf/install"
+fzf_home="$HOME/.local/share/zinit/plugins/junegunn---fzf/install"
 # 安装 faf
 function install_faf() {
   echo "\n验证 fzf 安装..."
   if ! command -v fzf &> /dev/null; then
     echo "检测到 fzf 未安装"
     # 检查安装脚本是否存在
-    if [ ! -f "$FZF_HOME" ]; then
+    if [ ! -f "$fzf_home" ]; then
       echo "错误：找不到 fzf 安装脚本，请检查以下路径："
-      echo "$FZF_HOME"
+      echo "$fzf_home"
       echo "可能原因：尚未通过 zinit 安装 fzf 插件"
       exit 1
     fi
     
     # 执行安装脚本
     echo "正在运行 fzf 安装脚本..."
-    if ! bash "$FZF_HOME"; then
+    if ! bash "$fzf_home"; then
       echo "错误：fzf 安装失败，您可以尝试以下方法："
       echo "1. 手动安装: https://github.com/junegunn/fzf#installation"
-      echo "2. 检查安装脚本权限: chmod +x '$FZF_HOME'"
+      echo "2. 检查安装脚本权限: chmod +x '$fzf_home'"
       exit 1
     fi
     
@@ -124,7 +121,7 @@ function main() {
   # 预处理
   check_pre_install
   # 下载 .zshrc 配置
-  download_conf $ZSHRC_FILE $GITHUB_ZSHRC 
+  download_conf 
   # 检测及安装 fzf
   install_faf 
 }

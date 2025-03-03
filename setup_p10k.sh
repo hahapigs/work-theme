@@ -9,7 +9,7 @@ taget_file="$HOME/.p10k.zsh"
 function choice_theme() {
   options=("A" "B")
   # 架构
-  architecture=(".p10k.zsh" ".p10k-WarpTerminal.zsh")
+  architecture=(".p10k-rainbow.zsh" ".p10k-ginkgo.zsh")
 
   # Prompt the user to choose from A or B
   echo "请选择您想要的主题："
