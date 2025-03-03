@@ -597,7 +597,7 @@
   # 还可以使用fortune来显示，例如：content=$(fortune ~/idiom)
   function custom_poem() {
     local content
-    if [[ $+commands[python3] ]] && content=$(python3 ~/GitHub/work-theme/theme---p10k/poem.py); then
+    if [[ $+commands[python3] ]] && content=$(python3 ~/.p10k-data/poem.py); then
       echo "$content \uf02d"
     else
       echo "error \uf119"
