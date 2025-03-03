@@ -25,7 +25,7 @@ poems = [
 ]
 
 # 计数器文件路径
-counter_file = os.path.expanduser("~/.poem_counter")
+counter_file = os.path.expanduser("~/.p10k-data/.poem_counter")
 
 def get_poem():
     # 读取计数器
