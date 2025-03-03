@@ -1,10 +1,9 @@
 #!/bin/bash
 set -e # 脚本执行出错时自动退出
 
-
 # Github 主题目录
-GITHUB_P10K="https://raw.githubusercontent.com/hahapigs/work-theme/refs/heads/main/theme---p10k/"
-P10K_FILE="$HOME/.p10k.zsh"
+source_url="https://raw.githubusercontent.com/hahapigs/work-theme/refs/heads/main/theme---p10k/"
+taget_file="$HOME/.p10k.zsh"
 
 # 选择主题
 function choice_theme() {
@@ -30,11 +29,11 @@ function choice_theme() {
     # Check user choice and display the selected line
     case $choice in
       A | a)
-        GITHUB_P10K="${GITHUB_P10K}$A"
+        source_url="${source_url}$A"
         flag=1
       ;;
       B | b)
-        GITHUB_P10K="${GITHUB_P10K}$B"
+        source_url="${source_url}$B"
         flag=1
       ;;
       Q | q)
@@ -48,9 +47,6 @@ function choice_theme() {
 
 # 下载配置
 function download_conf() {
-  local target_file=$1
-  local github_url=$2
-
   # 检测文件是否存在并处理
   if [ -f "$target_file" ]; then
     echo "检测到已存在 $target_file 文件"
@@ -79,10 +75,10 @@ function download_conf() {
 
   # 下载文件并检查结果
   echo "正在从 GitHub 下载文件"
-  if ! curl -sfL "$github_url" -o "$target_file"; then
+  if ! curl -sfL "$source_url" -o "$target_file"; then
     echo "错误：文件下载失败，请检查以下可能："
     echo "1. 网络连接是否正常"
-    echo "2. GitHub 文件地址是否正确: $github_url"
+    echo "2. GitHub 文件地址是否正确: $source_url"
     exit 1
   fi
   echo "文件已成功下载至: $target_file"
@@ -93,7 +89,7 @@ function main() {
   # 选择 .p10k 主题
   choice_theme
   # 下载 .p10k 主题
-  download_conf $P10K_FILE $GITHUB_P10K
+  download_conf
 }
 
 main
