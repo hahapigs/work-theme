@@ -86,7 +86,7 @@ p10k_theme=""
 function choice_theme() {
   options=("A" "B")
   # 架构
-  architecture=(".p10k-rainbow.zsh" ".p10k-ginkgo.zsh")
+  architecture=("rainbow" "ginkgo")
 
   # Prompt the user to choose from A or B
   echo "\n请选择您想要的主题："
@@ -106,11 +106,11 @@ function choice_theme() {
     # Check user choice and display the selected line
     case $choice in
       A | a)
-        p10k_theme=$A
+        p10k_theme=".p10k-$A.zsh"
         flag=1
       ;;
       B | b)
-        p10k_theme=$B
+        p10k_theme=".p10k-$B.zsh"
         flag=1
       ;;
       Q | q)
