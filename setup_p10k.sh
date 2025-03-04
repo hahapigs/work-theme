@@ -54,7 +54,7 @@ function choice_theme() {
   architecture=("rainbow" "ginkgo")
 
   # Prompt the user to choose from A or B
-  echo "\n请选择您想要的主题："
+  echo "请选择您想要的主题："
   for index in ${!options[@]}; do
     echo "${options[index]}. ${architecture[index]}"
     option=${options[index]}
