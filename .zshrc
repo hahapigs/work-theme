@@ -123,6 +123,8 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # 加载 zinit
 source /usr/local/opt/zinit/zinit.zsh
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 # 加载 Oh My Zsh 库
 # zinit snippet https://github.com/ohmyzsh/ohmyzsh/tree/master/lib/git.zsh
@@ -143,7 +145,7 @@ zinit snippet OMZP::git/git.plugin.zsh
 zinit ice wait"0" lucid
 zinit snippet OMZP::z/z.plugin.zsh
 
-# 延迟加载 sudo 插件
+# 延迟加载 sudo 插件，按2下ecs实现行首快速插入sudo
 zinit ice wait"0" lucid
 zinit snippet OMZP::sudo/sudo.plugin.zsh
 
@@ -151,7 +153,13 @@ zinit snippet OMZP::sudo/sudo.plugin.zsh
 zinit ice wait"0" lucid
 zinit snippet OMZP::copypath/copypath.plugin.zsh
 
-# 延迟加载 copypath 插件
+# 延迟加载 copybuffer 插件, ctrl+o 快速复制当前行命令, WarpTerminal 不支持copybuffer，但是可以通过shift+up/down实现快速选中或取消选中
+if [[ $TERM_PROGRAM = "WarpTerminal" ]]; then
+  zinit ice wait"0" lucid
+  zinit snippet OMZP::copybuffer/copybuffer.plugin.zsh
+fi
+
+# 延迟加载 dash 插件
 zinit ice wait"0" lucid
 zinit snippet OMZP::dash/dash.plugin.zsh
 
@@ -186,10 +194,18 @@ zinit ice wait"0" lucid atinit="ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
 zinit light zsh-users/zsh-history-substring-search
 
 # 延迟加载苹果 touchbar
-if [[ $TERM_PROGRAM = "iTerm.app" ]]; then
+if [[ $TERM_PROGRAM = "iTerm.app" ]] && [[ "$(uname)" == "Darwin" ]]; then
   zinit ice wait"1" lucid
   zinit light zsh-users/zsh-apple-touchbar
 fi
+
+# 延迟加载提示有缩写命令的插件
+zinit ice wait"0" lucid
+zinit light "MichaelAquilina/zsh-you-should-use"
+
+# 延迟加载 vi-mode
+zinit ice wait"0" lucid
+zinit light "jeffreytse/zsh-vi-mode"
 
 # 优化加载 powerlevel10k
 zinit ice depth"1" atload"source ~/.p10k.zsh"
@@ -208,7 +224,9 @@ source ~/.bash_profile
 # z
 # [ -f /usr/local/etc/profile.d/z.sh  ] && . /usr/local/etc/profile.d/z.sh
 
+# broot
 [[ -f /usr/local/bin/broot  ]] && source /Users/zhaohongliang/.config/broot/launcher/bash/br
+
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
