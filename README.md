@@ -1,24 +1,80 @@
-feat:  或 feature 引入新的功能或特性。
-fix: 修复 bug 或问题。
-refactor: 重构代码，不改变功能。
-style: 调整代码格式、样式。
-docs: 更新或添加文档。
-chore: 常规的工作或任务，如构建、版本控制、配置文件等。
-test: 添加、更新或修复测试代码。
-optimize: 优化代码性能、效率。
-revert: 撤销之前的提交。
-merge: 合并分支或解决冲突。
-release: 发布一个版本。
-hotfix: 发布紧急修补补丁。
-build: 构建过程或工具相关的更改。
-ci: 与持续集成（Continuous Integration）相关的更改。
-config: 配置文件的更改。
-data: 与数据相关的更改，如数据库操作、数据结构等。
-init: 初始化或创建项目。
-migration: 数据库迁移或数据迁移相关的更改。
-perf:  或 performance 性能优化相关的更改。
-security: 与安全性相关的更改。
-i18n: 国际化（Internationalization）相关的更改。
-log: 日志相关的更改。
-restyle: 调整样式或外观相关的更改。
-vendor: 更新或修改依赖的第三方库或模块。
+# 终端配置
+
+- 准备
+- Homebrew
+- omz + zinit + p10k
+
+## 准备
+
+``` powershell
+# 解析 raw.githubusercontent.com 为 ip
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/hahapigs/work-theme/refs/heads/main/setup_hosts.sh)"
+```
+
+如果 <code>raw.githubusercontent.com</code> 无法直接访问，可以手动执行
+
+``` powershell
+git clone https://github.com/hahapigs/work-theme.git ~/Github/work-theme
+sh ~/Github/work-theme/setup_hosts.sh
+```
+
+验证
+
+``` powershell
+# 查看域名解析是否正确，/etc/hosts 是 /private/etc/hosts 影射，不可修改
+cat /etc/hosts | grep -i 'github'
+
+# 查看访问情况
+# curl
+curl -Iv --max-time 5 https://raw.githubusercontent.com
+# telenet
+nc -vz raw.githubusercontent.com 443
+```
+
+## Homebrew
+
+#### install
+
+``` powershell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+#### uninstall
+
+``` powershell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+```
+
+说明：详细参看 <a href="https://github.com/Homebrew/install?tab=readme-ov-file">Homebrew</a>
+
+## omz + zinit + p10k
+
+#### omz install
+
+```powershell
+sh -c "$(curl -fsSL https://install.ohmyz.sh/)"
+```
+
+#### omz uninstall
+
+```powershell
+# 如果加载了 /lib/cli.zsh，可以直接使用 omz uninstall
+omz uninstall
+# 手动执行
+$ZSH/tools/uninstall.sh
+```
+
+说明：详细参看 <a href="https://github.com/ohmyzsh/ohmyzsh">oh-my-zsh</a>
+
+#### 自动安装
+
+```powershell
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/hahapigs/work-theme/refs/heads/main/install.sh)"
+```
+
+#### 手动安装
+
+```powershell
+git clone https://github.com/hahapigs/work-theme.git ~/Github/work-theme
+sh ~/Github/work-theme/install.sh
+```
