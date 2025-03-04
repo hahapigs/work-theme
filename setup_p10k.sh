@@ -3,7 +3,7 @@ set -e # 脚本执行出错时自动退出
 
 # Github 主题目录
 source_url="https://raw.githubusercontent.com/hahapigs/work-theme/refs/heads/main/theme---p10k/"
-taget_file="$HOME/.p10k.zsh"
+target_file="$HOME/.p10k.zsh"
 
 # 选择主题
 function choice_theme() {
@@ -79,6 +79,7 @@ function download_conf() {
     echo "错误：文件下载失败，请检查以下可能："
     echo "1. 网络连接是否正常"
     echo "2. GitHub 文件地址是否正确: $source_url"
+    echo "3. 要保存内容的文件名是否正确: $target_file"
     exit 1
   fi
   echo "文件已成功下载至: $target_file"
