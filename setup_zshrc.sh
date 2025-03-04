@@ -35,16 +35,17 @@ function check_pre_install() {
   fi
 }
 
-
 # ========== 第一部分：处理 .zshrc 文件 ==========
-target_file="$HOME/.zshrc"
-source_url="https://raw.githubusercontent.com/hahapigs/work-theme/main/.zshrc"
-# 下载配置
-function download_conf() {
+# 复制配置
+function copy_conf() {
+  
+  local source_file=$1
+  local target_file=$2
+
   # 检测文件是否存在并处理
   if [ -f "$target_file" ]; then
-    echo "检测到已存在 $target_file 文件"
-    read -p "请选择操作：[B]备份后下载/[O]直接覆盖/[Q]取消 (B/O/Q) " action
+    echo "\n检测到已存在 $target_file 文件"
+    read -p "请选择操作：[B]备份后复制/[O]直接覆盖/[Q]取消 (B/O/Q) " action
     
     case $action in
       [Bb]*) 
@@ -67,66 +68,18 @@ function download_conf() {
     esac
   fi
 
-  # 下载文件并检查结果
-  echo "正在从 GitHub 下载文件"
-  if ! curl -sfL "$source_url" -o "$target_file"; then
-    echo "错误：文件下载失败，请检查以下可能："
-    echo "1. 网络连接是否正常"
-    echo "2. GitHub 文件地址是否正确: $source_url"
+  # 复制文件并检查结果
+  echo "正在复制文件 ..."
+  if ! cp $source_file $target_file; then
+    echo "错误：复制文件失败，请检查以下可能："
+    echo "1. 被复制的文件是否存在 $source_file"
+    echo "2. 要保存的文件是否正确 $target_file"
     exit 1
   fi
-  echo "文件已成功下载至: $target_file"
+  echo "文件已成功复制至: $target_file"
 }
 
-
-# ========== 第二部分：验证 fzf 安装 ==========
-# 定义可能的安装脚本路径
-fzf_home="$HOME/.local/share/zinit/plugins/junegunn---fzf/install"
-# 安装 faf
-function install_faf() {
-  echo "\n验证 fzf 安装..."
-  if ! command -v fzf &> /dev/null; then
-    echo "检测到 fzf 未安装"
-    # 检查安装脚本是否存在
-    if [ ! -f "$fzf_home" ]; then
-      echo "错误：找不到 fzf 安装脚本，请检查以下路径："
-      echo "$fzf_home"
-      echo "可能原因：尚未通过 zinit 安装 fzf 插件"
-      exit 1
-    fi
-    
-    # 执行安装脚本
-    echo "正在运行 fzf 安装脚本..."
-    if ! bash "$fzf_home"; then
-      echo "错误：fzf 安装失败，您可以尝试以下方法："
-      echo "1. 手动安装: https://github.com/junegunn/fzf#installation"
-      echo "2. 检查安装脚本权限: chmod +x '$fzf_home'"
-      exit 1
-    fi
-    
-    # 二次验证安装结果
-    if ! command -v fzf &> /dev/null; then
-      echo "警告：安装脚本执行完成但 fzf 仍不可用"
-      echo "建议：重新登录终端或手动添加环境变量"
-    else
-      echo "fzf 已成功安装！"
-    fi
-  else
-    echo "fzf 已正确安装：$(which fzf)"
-  fi
-}
-
-
-function main() {
-  # 预处理
-  check_pre_install
-  # 下载 .zshrc 配置
-  download_conf 
-  # 检测及安装 fzf
-  install_faf 
-}
-
-main
-
-echo "\n所有操作已完成！建议执行以下命令："
-echo "source ~/.zshrc"
+# 预处理
+check_pre_install
+# 拷贝 oh-my-zsh 配置
+copy_conf ".zshrc" "$HOME/.zshrc"
