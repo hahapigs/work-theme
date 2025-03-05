@@ -83,3 +83,5 @@ function copy_conf() {
 check_pre_install
 # 拷贝 oh-my-zsh 配置
 copy_conf ".zshrc" "$HOME/.zshrc"
+# 拷贝 zinit.zsh 配置
+copy_conf ".zinit.zsh" "$HOME/.zinit.zsh"
