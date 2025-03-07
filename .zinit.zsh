@@ -1,10 +1,10 @@
 ######################################################################################################################################
 ##### github: https://github.com/zdharma-continuum/zinit?tab=readme-ov-file#automatic
-##### wiki: https://zdharma-continuum.github.io/zinit/wiki/   
+##### wiki: https://zdharma-continuum.github.io/zinit/wiki/
 ######################################################################################################################################
 
 ##########################################################
-##### Install `zinit` and load it                                                 
+##### Install `zinit` and load it
 ##########################################################
 ## Automatic
 # [[ ! -d "${HOME}/.local/share/zinit" ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
@@ -25,7 +25,7 @@
 
 ## MacOS (Homebrew)
 # [[ ! command -v zinit ]] && brew install zinit
-[[ ! -d $(brew --prefix zinit) ]] && brew install zinit 
+[[ ! -d $(brew --prefix zinit) ]] && brew install zinit
 
 # Load zinit
 source /usr/local/opt/zinit/zinit.zsh
@@ -43,7 +43,7 @@ source /usr/local/opt/zinit/zinit.zsh
 #   atload"unalias grv" OMZP::git \
 
 ##########################################################
-##### Load Oh My Zsh's libraries                                                  
+##### Load Oh My Zsh's libraries
 ##########################################################
 zinit snippet OMZL::git.zsh                 # git 命令别名
 zinit snippet OMZL::cli.zsh                 # omz 命令
@@ -54,7 +54,7 @@ zinit snippet OMZL::key-bindings.zsh        # 快捷键绑定
 zinit snippet OMZL::directories.zsh         # 目录导航和管理，例如：cd ...
 
 ##########################################################
-##### Load Oh My Zsh's plugins                                                  
+##### Load Oh My Zsh's plugins
 ##########################################################
 # zinit snippet OMZP::git/git.plugin.zsh
 zinit ice wait"0a" lucid
@@ -86,7 +86,7 @@ zinit ice wait"0a" lucid
 zinit snippet OMZP::dash
 
 ##########################################################
-##### Load external plugins of Oh My Zsh                                                 
+##### Load external plugins of Oh My Zsh
 ##########################################################
 # Lazy-load zsh-defer
 # zinit ice wait"1" lucid
@@ -134,7 +134,7 @@ export YSU_MESSAGE_POSITION="after"
 # zinit light jeffreytse/zsh-vi-mode
 
 ##########################################################
-##### Installing Command-Line Tools and load it                                                 
+##### Installing Command-Line Tools and load it
 ##########################################################
 # Lazy-load lsd
 # https://github.com/lsd-rs/lsd
@@ -142,7 +142,7 @@ zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/lsd"
 zinit light lsd-rs/lsd
 
 # Lazy-load zoxide
-zinit ice wait"0a" lucid from"gh-r" as"program" atclone"./zoxide init zsh > init.zsh" atpull"%atclone" src"init.zsh" 
+zinit ice wait"0a" lucid from"gh-r" as"program" atclone"./zoxide init zsh > init.zsh" atpull"%atclone" src"init.zsh"
 zinit light ajeetdsouza/zoxide
 
 # Lazy-load fd
@@ -179,7 +179,7 @@ fzf_toggle_hidden() {
 # For directory search with alt-c
 export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
 # Custom preview for ctrl-t
-export FZF_CTRL_T_OPTS=$FZF_CTRL_T_OPTS" 
+export FZF_CTRL_T_OPTS=$FZF_CTRL_T_OPTS"
 --header='$(printf "^. to toggle hidden files")'
 --prompt '📁 '
 "
@@ -192,7 +192,7 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
 --info=inline                 # Show info inline with results
 --multi                       # Enable multi-selection
 --cycle                       # Ensure cycling through options
---no-hscroll                  # Disable horizontal scrolling 
+--no-hscroll                  # Disable horizontal scrolling
 --preview-window=right:60%:wrap    # Preview pane on right, 60% width, wrapped text (up:3:hidden:wrap)
 --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
 # Preview command explanation:
@@ -200,14 +200,14 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
 # - For directories: Show tree structure
 # - For other items: Echo the item
 --color='bg:#1e1e2e,bg+:#313244,fg:#cdd6f4,fg+:#cdd6f4,hl:214,hl+:76'
---color='header:#f38ba8,info:#cba6f7,prompt:#cba6f7,pointer:76,marker:#f5e0dc,gutter:8' 
+--color='header:#f38ba8,info:#cba6f7,prompt:#cba6f7,pointer:76,marker:#f5e0dc,gutter:8'
 --header='$(printf "^Y 拷贝到剪切板")'
 --prompt=' '
---pointer='➤'         
+--pointer='➤'
 --marker='✓'
 --bind 'ctrl-a:select-all'                                      # Select all items
 --bind 'ctrl-e:execute(echo {+} | xargs -o vim)'                # Open in vim
---bind 'ctrl-v:execute(code {+})'                               # Open in VS Code 
+--bind 'ctrl-v:execute(code {+})'                               # Open in VS Code
 --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'    # Copy to clipboard
 --bind 'ctrl-/:toggle-preview'                                  # Change preview window
 #--bind '?:change-preview-window(down|hidden|)'
@@ -218,7 +218,7 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
 # https://github.com/cantino/mcfly
 zinit ice wait"0b" lucid if"[[ -n '$TMUX' ]] || [[ '$TERM_PROGRAM' != 'WarpTerminal' ]]" from"gh-r" as"program" atload'eval "$(mcfly init zsh)"; bindkey "^R" fzf-history-widget; bindkey "^Y" mcfly-history-widget'
 zinit light cantino/mcfly
-# To swap the color scheme 
+# To swap the color scheme
 [[ "$(defaults read -g AppleInterfaceStyle 2&>/dev/null)" != "Dark" ]] && export MCFLY_LIGHT=true
 export MCFLY_KEY_SCHEME=vim
 # Fuzzy searching, 0 is off, [2-5] is best
@@ -239,7 +239,7 @@ MCFLY_HISTORY_LIMIT=100000
 # unset MCFLY_HISTORY
 
 ##########################################################
-##### Load powerlevel10k theme                                                  
+##### Load powerlevel10k theme
 ##########################################################
 # Load powerlevel10k theme
 # https://github.com/romkatv/powerlevel10k
