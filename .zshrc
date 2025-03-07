@@ -129,6 +129,5 @@ source ~/.bash_profile
 # broot
 [[ -f /usr/local/bin/broot  ]] && source /Users/zhaohongliang/.config/broot/launcher/bash/br
 
-
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
