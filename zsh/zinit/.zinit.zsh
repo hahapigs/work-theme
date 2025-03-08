@@ -92,11 +92,6 @@ zinit snippet OMZP::dash
 # zinit ice wait"1" lucid
 # zinit light romkatv/zsh-defer
 
-# Lazy-load fzf-tab
-# https://github.com/Aloxaf/fzf-tab
-zinit ice wait"0a" lucid
-zinit light Aloxaf/fzf-tab
-
 # Lazy-load zsh-autosuggestions with priority loading
 # Changed wait to "0a" to load before syntax highlighting
 # 没有 atload='_zsh_autosuggest_start' 会影响首个 prompt 失去提示功能
@@ -155,8 +150,18 @@ zinit load sharkdp/fd
 # zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/bat"
 # zinit load sharkdp/bat
 
+# Lazy-load fzf-tab
+# https://github.com/Aloxaf/fzf-tab
+zinit ice wait"0a" lucid
+zinit light Aloxaf/fzf-tab
+
+# Lazy-load fzf
 zinit ice wait"0b" lucid if"[[ -n '$TMUX' ]] || [[ '$TERM_PROGRAM' != 'WarpTerminal' ]]" from="gh-r" as"program" atload"source <(fzf --zsh); bindkey '^R' fzf-history-widget; bindkey '^T' fzf-file-widget"
 zinit light junegunn/fzf
+
+# Lazy-load forgit
+zinit ice wait"0b" lucid
+zinit load wfxr/forgit
 
 # Lazy-load mcfly
 # https://github.com/cantino/mcfly
@@ -182,9 +187,6 @@ MCFLY_HISTORY_LIMIT=100000
 # Pause used
 # unset MCFLY_HISTORY
 
-zinit ice wait"0b" lucid
-zinit load wfxr/forgit
-
 ##########################################################
 ##### Load powerlevel10k theme
 ##########################################################
@@ -206,9 +208,9 @@ zinit light romkatv/powerlevel10k
 #           atpull"%atclone" src"init.zsh"
 # zinit light starship/starship
 
-#####################
-# SETOPT            #
-#####################
+##########################################################
+##### ZSH Basic Options
+##########################################################
 setopt extended_history       # record timestamp of command in HISTFILE
 setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
 setopt hist_ignore_all_dups   # ignore duplicated commands history list
