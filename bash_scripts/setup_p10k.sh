@@ -106,6 +106,6 @@ function copy_dir {
 # 选择主题
 choice_theme
 # 拷贝主题
-copy_conf "./theme---p10k/$p10k_theme" "$HOME/.p10k.zsh"
+copy_conf "../zsh/theme---p10k/$p10k_theme" "$HOME/.p10k.zsh"
 # 拷贝主题数据
-copy_dir "./theme---p10k/.p10k-data" $HOME
+copy_dir "../zsh/theme---p10k/data" "$HOME/.config/zsh/theme---p10k"
