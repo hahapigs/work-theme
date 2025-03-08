@@ -2,7 +2,7 @@
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.pre.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.pre.bash"
 
 ##########################################################
-## aliases
+## Environment Variables
 ##########################################################
 
 alias ls="lsd"                  # list all files and directories
