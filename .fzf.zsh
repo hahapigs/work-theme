@@ -6,7 +6,7 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
 --border --padding 1,2
 --input-label ' Input '
 --height 80%                  # Use 80% of terminal height
---layout reverse              # List appears above the prompt (reverse, up, bottom)
+--layout reverse             # List appears above the prompt (reverse, up, bottom)
 --border rounded              # Add rounded borders
 --margin 1                    # Set margin to create space around the window
 --info inline                 # Show info inline with results
@@ -30,13 +30,13 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
 "
 
 # For ctrl-t file search
-export FZF_CTRL_T_COMMAND="fd --type f
---exclude .git
---exclude node_modules
---exclude .DS_Store
---exclude '*.pyc'
---exclude '*.class'
-"
+export FZF_CTRL_T_COMMAND="fd --type f --hidden \
+--exclude .git \
+--exclude .DS_Store \
+--exclude '*.class' \
+--exclude '*.pyc' \
+--exclude node_modules"
+
 # Function to toggle hidden files in any fzf context
 fzf_toggle_hidden() {
   if [[ -v FZF_HIDDEN ]]; then
@@ -79,13 +79,13 @@ export FZF_CTRL_T_OPTS=$FZF_CTRL_T_OPTS"
 export FZF_ALT_C_OPTS=$FZF_ALT_C_COMMAND"
 --style full
 --border-label ' 目录跳转器 '
---header-label '  '
+--header-label ' 绝对路径 '
 --prompt '📁  '
---bind 'focus:+transform-header:file --brief {} || $(echo "No file selected")'
+--bind 'focus:+transform-header:echo \$(pwd | awk \"{print \\\$1}\")/{} || $(echo "No directory selected")'
 "
 
 ##########################################################
-##### wfxr/forgit  
+##### wfxr/forgit
 ##########################################################
 # For forgit global config
 export FORGIT_FZF_DEFAULT_OPTS="$FORGIT_FZF_DEFAULT_OPTS
@@ -98,7 +98,7 @@ export FORGIT_FZF_DEFAULT_OPTS="$FORGIT_FZF_DEFAULT_OPTS
 "
 
 ##########################################################
-##### Aloxaf/fzf-tab 
+##### Aloxaf/fzf-tab
 ##########################################################
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
