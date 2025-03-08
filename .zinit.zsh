@@ -93,6 +93,7 @@ zinit snippet OMZP::dash
 # zinit light romkatv/zsh-defer
 
 # Lazy-load fzf-tab
+# https://github.com/Aloxaf/fzf-tab
 zinit ice wait"0a" lucid
 zinit light Aloxaf/fzf-tab
 
