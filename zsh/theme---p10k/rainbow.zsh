@@ -107,7 +107,7 @@
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     per_directory_history   # Oh My Zsh per-directory-history local/global indicator
     # cpu_arch              # CPU architecture
-    custom_poem
+    custom_idiom
     time                    # current time
     # =========================[ Line #2 ]=========================
     newline
@@ -193,7 +193,7 @@
   #################################[ os_icon: os identifier ]##################################
   # OS identifier color.
   typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=255
-  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=34
+  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=202
   # Custom icon.
   # typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='⭐'
 
@@ -222,7 +222,7 @@
 
   ##################################[ dir: current directory ]##################################
   # Current directory background color.
-  typeset -g POWERLEVEL9K_DIR_BACKGROUND=46
+  typeset -g POWERLEVEL9K_DIR_BACKGROUND=214
   # Default current directory foreground color.
   typeset -g POWERLEVEL9K_DIR_FOREGROUND=233
   # If directory is too long, shorten some of its segments to the shortest possible unique
@@ -362,10 +362,10 @@
 
   #####################################[ vcs: git status ]######################################
   # Version control background colors.
-  typeset -g POWERLEVEL9K_VCS_CLEAN_BACKGROUND=154
-  typeset -g POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=226
-  typeset -g POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=154
-  typeset -g POWERLEVEL9K_VCS_CONFLICTED_BACKGROUND=226
+  typeset -g POWERLEVEL9K_VCS_CLEAN_BACKGROUND=226
+  typeset -g POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=118
+  typeset -g POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=226
+  typeset -g POWERLEVEL9K_VCS_CONFLICTED_BACKGROUND=118
   typeset -g POWERLEVEL9K_VCS_LOADING_BACKGROUND=8
   typeset -g POWERLEVEL9K_VCS_FOREGROUND=233
 
@@ -588,16 +588,16 @@
   # Custom prefix.
   # typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_PREFIX='took '
 
-  ###################[ custom_poem: idiom of the fortune command ]###################
+  ###################[ custom_idiom: idiom of the fortune command ]###################
   # Background idiom color.
-  typeset -g POWERLEVEL9K_CUSTOM_POEM_FOREGROUND=233
-  typeset -g POWERLEVEL9K_CUSTOM_POEM_BACKGROUND=154
+  typeset -g POWERLEVEL9K_CUSTOM_IDIOM_FOREGROUND=233
+  typeset -g POWERLEVEL9K_CUSTOM_IDIOM_BACKGROUND=135
   # 自定义提示段
-  typeset -g POWERLEVEL9K_CUSTOM_POEM="custom_poem"
-  # 还可以使用fortune来显示，例如：content=$(fortune ~/idiom)
-  function custom_poem() {
+  typeset -g POWERLEVEL9K_CUSTOM_IDIOM="custom_idiom"
+  # 还可以使用python脚本来显示，例如：content=$(python3 ~/poem.py)
+  function custom_idiom() {
     local content
-    if [[ $+commands[python3] ]] && content=$(python3 ~/.p10k-data/poem.py); then
+    if [[ $+commands[fortune] ]] && content=$(fortune ~/.config/zsh/theme---p10k/data/idiom); then
       echo "$content \uf02d"
     else
       echo "error \uf119"
@@ -1815,7 +1815,7 @@
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_example() {
-    p10k segment -b 1 -f 3 -i ' ' -t $'\uF31A' # 
+    p10k segment -b 0 -f 3 -i ' ' -t $'\uF31A' # 
   }
 
   # function prompt_example() {
