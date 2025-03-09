@@ -5,6 +5,8 @@
 --margin 1
 --multi
 --no-hscroll
+--layout reverse
+--inline-info
 --input-label ' Input '
 --pointer '➤ '
 --color 'bg:#1e1e2e,bg+:#313244,fg:#cdd6f4,fg+:#cdd6f4,hl:214,hl+:76'
@@ -14,8 +16,8 @@
 --color 'header:#f38ba8,header-border:#6699cc,header-label:#99ccff'
 --color 'list-border:#669966,list-label:#99cc99'
 --color 'pointer:76,marker:226'
---preview '([[ -f {}   ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {}   ]] && (exa --tree --level=2 --icons {} || lsd --tree --depth=2 {} || tree -C {} | less)) || echo {} 2> /dev/null | head -200'
---bind 'result:transform-list-label:[[ -z $FZF_QUERY  ]] && echo " $FZF_MATCH_COUNT items " || echo " $FZF_MATCH_COUNT matches for [$FZF_QUERY] "'
+# --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (exa --tree --level=2 --icons {} || lsd --tree --depth=2 {} || tree -C {} | less)) || echo {} 2> /dev/null | head -200'
+--bind 'result:transform-list-label:[[ -z $FZF_QUERY ]] && echo " $FZF_MATCH_COUNT items " || echo " $FZF_MATCH_COUNT matches for [$FZF_QUERY] "'
 --bind 'ctrl-/:toggle-preview'
 --bind 'ctrl-t:top'
 --bind 'ctrl-j:down'
