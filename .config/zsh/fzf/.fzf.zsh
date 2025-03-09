@@ -6,7 +6,7 @@ FZF_HOME="$HOME/.config/zsh/fzf"
 # Default options in a file
 export FZF_DEFAULT_OPTS_FILE="$FZF_HOME/.fzfrc"
 # Default options
-export FZF_DEFAULT_OPTS="--preview '$FZF_HOME/fzf_preview.sh {}'"   # permission denied，可以执行chmod +x fzf_preview.sh  
+export FZF_DEFAULT_OPTS="--preview '$FZF_HOME/fzf_preview.sh {}'"   # permission denied，execute chmod +x fzf_preview.sh  
 # Default command to use when input is tty
 export FZF_DEFAULT_COMMAND='fd --type f'
 
@@ -21,8 +21,8 @@ export FZF_CTRL_R_OPTS="
 --prompt='🚀  '
 --bind 'focus:+transform-header:echo -n {2..} || $(echo "No command selected")'
 --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'    # Copy to clipboard
---bind '>:preview:man \$(echo -n {2..} | awk \"{print \\\$1}\") 2>/dev/null || (echo \"Command error\" | boxes -a c -d tux)'
---bind '?:preview:timeout 1 tldr \$(echo -n {2..} | awk \"{print \\\$1}\") 2>/dev/null || (echo \"Command error\" | boxes -a c -d cowsay)'
+--bind '>:preview:awk \"{print \\\$2}\" <<< {} | xargs man 2>/dev/null || echo \"Command error\" | boxes -a c -d tux'
+--bind '?:preview:awk \"{print \\\$2}\" <<< {} | xargs timeout 1 tldr 2>/dev/null || echo \"Command error\" | boxes -a c -d cowsay'
 "
 
 ########################
