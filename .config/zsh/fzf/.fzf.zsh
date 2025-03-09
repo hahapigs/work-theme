@@ -2,32 +2,9 @@
 ##### junegunn/fzf
 ##########################################################
 # For fzf global config
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
---border --padding 1,2
---input-label ' Input '
---height 80%                  # Use 80% of terminal height
---layout reverse             # List appears above the prompt (reverse, up, bottom)
---border rounded              # Add rounded borders
---margin 1                    # Set margin to create space around the window
---info inline                 # Show info inline with results
---multi                       # Enable multi-selection
---no-hscroll                  # Disable horizontal scrolling
---preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (exa --tree --level=2 --icons {} || lsd --tree --depth=2 {} || tree -C {} | less)) || echo {} 2> /dev/null | head -200'
---color 'bg:#1e1e2e,bg+:#313244,fg:#cdd6f4,fg+:#cdd6f4,hl:214,hl+:76'
---color 'border:#aaaaaa,label:#cccccc,gutter:8'
---color 'preview-border:#9999cc,preview-label:#ccccff'
---color 'input-border:#996666,input-label:#ffcccc,prompt:#cba6f7'
---color 'header:#f38ba8,header-border:#6699cc,header-label:#99ccff'
---color 'list-border:#669966,list-label:#99cc99'
---color 'pointer:76,marker:226'
---pointer='➤ '
---bind 'result:transform-list-label:[[ -z \$FZF_QUERY ]] && echo \" \$FZF_MATCH_COUNT items \" || echo \" \$FZF_MATCH_COUNT matches for [\$FZF_QUERY] \"'
---bind 'ctrl-/:toggle-preview'
---bind 'ctrl-t:top'
---bind 'ctrl-j:down'
---bind 'ctrl-k:up'
---exit-0
-"
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
+export FZF_DEFAULT_OPTS_FILE="$HOME/.config/zsh/fzf/.fzfrc"
 
 # For ctrl-t file search
 export FZF_CTRL_T_COMMAND="fd --type f --hidden \
@@ -96,6 +73,33 @@ export FORGIT_FZF_DEFAULT_OPTS="$FORGIT_FZF_DEFAULT_OPTS
 --marker='✓ '
 --bind 'focus:+transform-header:git branch --show-current || $(echo "No git")'
 "
+
+# Use ~~ as the trigger sequence instead of the default **
+export FZF_COMPLETION_TRIGGER='~~'
+
+# Options to fzf command
+export FZF_COMPLETION_OPTS='--border --info=inline'
+
+# Options for path completion (e.g. vim **<TAB>)
+export FZF_COMPLETION_PATH_OPTS='--walker file,dir,follow,hidden'
+
+# Options for directory completion (e.g. cd **<TAB>)
+export FZF_COMPLETION_DIR_OPTS='--walker dir,follow'
+
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments ($@) to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'tree -C {} | head -200'   "$@" ;;
+    export|unset) fzf --preview "eval 'echo \$'{}"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
+  esac
+}
 
 ##########################################################
 ##### Aloxaf/fzf-tab
