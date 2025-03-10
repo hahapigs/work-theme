@@ -55,6 +55,7 @@ export FZF_ALT_C_OPTS="
 --border-label ' 目录跳转器 '
 --header-label ' 绝对路径 '
 --prompt '📁  '
+--walker-skip .git,node_modules,target
 --bind 'focus:+transform-header:echo \$(pwd | awk \"{print \\\$1}\")/{} || $(echo "No directory selected")'
 "
 
@@ -62,7 +63,7 @@ export FZF_ALT_C_OPTS="
 ## Tab    
 ########################
 # Use ~~ as the trigger sequence instead of the default **
-export FZF_COMPLETION_TRIGGER='~~'
+export FZF_COMPLETION_TRIGGER='**'
 # Options to fzf command
 export FZF_COMPLETION_OPTS='--border --info=inline'
 # Options for path completion (e.g. vim **<TAB>)

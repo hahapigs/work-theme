@@ -21,7 +21,6 @@
 # source "${ZINIT_HOME}/zinit.zsh"
 # autoload -Uz _zinit
 # (( ${+_comps} )) && _comps[zinit]=_zinit
-# exec zsh
 
 ## MacOS (Homebrew)
 # [[ ! command -v zinit ]] && brew install zinit
@@ -74,7 +73,7 @@ zinit snippet OMZP::copypath
 
 # Lazy-load copybuffer, bindkey "^O" copybuffer
 # 快速复制当前行命令, WarpTerminal 不支持copybuffer，但是可以通过shift+up/down实现快速选中或取消选中
-zinit ice if"[[ -n '$TMUX' ]] || [[ $TERM_PROGRAM != 'WarpTerminal' ]]" wait"0a" lucid
+zinit ice wait"0a" lucid if"[[ -n '$TMUX' ]] || [[ $TERM_PROGRAM != 'WarpTerminal' ]]"
 zinit snippet OMZP::copybuffer
 
 # Lazy-load command-not-found
@@ -92,6 +91,12 @@ zinit snippet OMZP::dash
 # zinit ice wait"1" lucid
 # zinit light romkatv/zsh-defer
 
+# Lazy-load fzf-tab
+# https://github.com/Aloxaf/fzf-tab
+# ❗️ fzf-tab 对加载顺序有要求，将它放在 compinit 之后、zsh-autosuggestions 和 fast-syntax-highlighting 和 zsh-syntax-highlighting 之前加载，否则会导致 tab 快捷键无效
+zinit ice wait"0a" lucid if"[[ -n '$TMUX' ]] || [[ $TERM_PROGRAM != 'WarpTerminal' ]]"
+zinit light Aloxaf/fzf-tab
+
 # Lazy-load zsh-autosuggestions with priority loading
 # Changed wait to "0a" to load before syntax highlighting
 # 没有 atload='_zsh_autosuggest_start' 会影响首个 prompt 失去提示功能
@@ -104,7 +109,7 @@ zinit ice wait"0c" lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
 zinit light zdharma-continuum/fast-syntax-highlighting       # zsh-users/zsh-syntax-highlighting 更新滞后
 
 # Lazy-load zsh-completions
-zinit ice wait"0a" lucid
+zinit ice wait"0a" lucid blockf
 zinit light zsh-users/zsh-completions
 
 # Lazy-load zsh-history-substring-search
@@ -149,11 +154,6 @@ zinit load sharkdp/fd
 # https://github.com/sharkdp/bat
 # zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/bat"
 # zinit load sharkdp/bat
-
-# Lazy-load fzf-tab
-# https://github.com/Aloxaf/fzf-tab
-zinit ice if"[[ -n '$TMUX' ]] || [[ '$TERM_PROGRAM' != 'WarpTerminal' ]]" wait"0a" lucid
-zinit light Aloxaf/fzf-tab
 
 # Lazy-load fzf
 zinit ice wait"0b" lucid from="gh-r" as"program" atload"source <(fzf --zsh); bindkey '^R' fzf-history-widget; bindkey '^T' fzf-file-widget"
