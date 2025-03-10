@@ -152,11 +152,11 @@ zinit load sharkdp/fd
 
 # Lazy-load fzf-tab
 # https://github.com/Aloxaf/fzf-tab
-zinit ice wait"0a" lucid
+zinit ice if"[[ -n '$TMUX' ]] || [[ '$TERM_PROGRAM' != 'WarpTerminal' ]]" wait"0a" lucid
 zinit light Aloxaf/fzf-tab
 
 # Lazy-load fzf
-zinit ice wait"0b" lucid if"[[ -n '$TMUX' ]] || [[ '$TERM_PROGRAM' != 'WarpTerminal' ]]" from="gh-r" as"program" atload"source <(fzf --zsh); bindkey '^R' fzf-history-widget; bindkey '^T' fzf-file-widget"
+zinit ice wait"0b" lucid from="gh-r" as"program" atload"source <(fzf --zsh); bindkey '^R' fzf-history-widget; bindkey '^T' fzf-file-widget"
 zinit light junegunn/fzf
 
 # Lazy-load forgit
@@ -165,7 +165,7 @@ zinit load wfxr/forgit
 
 # Lazy-load mcfly
 # https://github.com/cantino/mcfly
-zinit ice wait"0b" lucid if"[[ -n '$TMUX' ]] || [[ '$TERM_PROGRAM' != 'WarpTerminal' ]]" from"gh-r" as"program" atload'eval "$(mcfly init zsh)"; bindkey "^R" fzf-history-widget; bindkey "^Y" mcfly-history-widget'
+zinit ice wait"0b" lucid from"gh-r" as"program" atload'eval "$(mcfly init zsh)"; bindkey "^R" fzf-history-widget; bindkey "^Y" mcfly-history-widget'
 zinit light cantino/mcfly
 
 ##########################################################
