@@ -9,7 +9,6 @@ export FZF_DEFAULT_OPTS_FILE="$FZF_HOME/.fzfrc"
 export FZF_DEFAULT_OPTS="--preview '$FZF_HOME/fzf_preview.sh {}'"   # permission denied，execute chmod +x fzf_preview.sh  
 # Default command to use when input is tty
 export FZF_DEFAULT_COMMAND='fd --type f'
-
 ########################
 ## CTRL + R    
 ########################
@@ -29,8 +28,9 @@ export FZF_CTRL_R_OPTS="
 ## CTRL + T    
 ########################
 # For ctrl-t file search
-export FZF_CTRL_T_COMMAND="fd --type f --hidden $(cat $FZF_HOME/.fdignore | xargs -I {} echo --exclude '{}')"
+export FZF_CTRL_T_COMMAND="fd --type f --hidden $(cat $FZF_HOME/.fdignore | xargs -I {} echo --exclude '"{}"' | tr '\n' ' ')";
 # Custom preview for ctrl-t
+# ❗️ 设置 --walker 或 --walker-skip 会覆盖 FZF_CTRL_T_COMMAND (e.g. --walker-skip .git,node_modules,target)
 export FZF_CTRL_T_OPTS="
 --style full
 --border-label ' 文件查找器 '
@@ -44,14 +44,14 @@ export FZF_CTRL_T_OPTS="
 --bind 'ctrl-a:select-all'                                      # Select all items
 --bind 'enter:execute(echo {+} | xargs -o vim)'                 # Default open in vim
 --bind '?:reload(fd --type f)'
---bind '>:reload(fd --type f --hidden \$(cat \$FZF_HOME/.fdignore | xargs -I {} echo --exclude \"{}\"))'
+--bind '>:reload(fd --type f --hidden eval \$FZF_DEFAULT_COMMAND)'
 "
 
 ########################
 ## ALT + C / ESC + C    
 ########################
 # For directory search with alt-c
-# export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+export FZF_ALT_C_COMMAND="fd --type d --hidden --follow $(cat $FZF_HOME/.fdignore | xargs -I {} echo --exclude '"{}"' | tr '\n' ' ')"
 export FZF_ALT_C_OPTS="
 --style full
 --border-label ' 目录跳转器 '
@@ -62,16 +62,16 @@ export FZF_ALT_C_OPTS="
 "
 
 ########################
-## Tab    
+## Fuzzy completion for Tab
 ########################
 # Use ~~ as the trigger sequence instead of the default **
 export FZF_COMPLETION_TRIGGER='**'
 # Options to fzf command
 export FZF_COMPLETION_OPTS='--border --info=inline'
-# Options for path completion (e.g. vim **<TAB>)
-export FZF_COMPLETION_PATH_OPTS='--walker file,dir,follow,hidden'
-# Options for directory completion (e.g. cd **<TAB>)
-export FZF_COMPLETION_DIR_OPTS='--walker dir,follow'
+# Options for path completion (e.g. vim **<TAB>)  file,dir,follow,hidden
+export FZF_COMPLETION_PATH_OPTS='--walker-skip .git,node_modules,target,*.class,Pictures,Music,Movies,'
+# Options for directory completion (e.g. cd **<TAB>) dir,follow
+export FZF_COMPLETION_DIR_OPTS='--walker-skip .git,node_modules,target,Pictures,Music,Movies'
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
 # - You should make sure to pass the rest of the arguments ($@) to fzf.
@@ -85,6 +85,20 @@ _fzf_comprun() {
     ssh)          fzf --preview 'dig {}'                   "$@" ;;
     *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
   esac
+}
+
+### Customizing completion source for paths and directories
+# ❗️ 会覆盖 FZF_COMPLETION_PATH_OPTS 和 FZF_COMPLETION_DIR_OPTS 的 --walker 和 --walker-skip
+# Use fd (https://github.com/sharkdp/fd) for listing path candidates
+# e.g. vim ~/**<tab> runs with the prefix () as the first argument fzf_compgen_path() ~/
+_fzf_compgen_path() {
+  fd --hidden --follow $(cat $FZF_HOME/.fdignore | xargs -I {} echo --exclude {} | tr '\n' ' ') . "$1"
+}
+
+# Use fd to generate the list for directory completion
+# e.g. cd foo**<tab> runs with the prefix () as the first argument fzf_compgen_dir() foo
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow $(cat $FZF_HOME/.fdignore | xargs -I {} echo --exclude {} | tr '\n' ' ') . "$1"
 }
 
 ##########################################################
