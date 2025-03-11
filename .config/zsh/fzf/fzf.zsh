@@ -6,11 +6,11 @@ FZF_HOME="$HOME/.config/zsh/fzf"
 # Default options in a file
 export FZF_DEFAULT_OPTS_FILE="$FZF_HOME/.fzfrc"
 # Default options
-export FZF_DEFAULT_OPTS="--preview '$FZF_HOME/fzf_preview.sh {}'"   # permission denied，execute chmod +x fzf_preview.sh  
+export FZF_DEFAULT_OPTS="--preview '$FZF_HOME/fzf_preview.sh {}'"   # permission denied，execute chmod +x fzf_preview.sh
 # Default command to use when input is tty
 export FZF_DEFAULT_COMMAND='fd --type f'
 ########################
-## CTRL + R    
+## CTRL + R
 ########################
 # For command search with ctrl-r
 export FZF_CTRL_R_OPTS="
@@ -25,7 +25,7 @@ export FZF_CTRL_R_OPTS="
 "
 
 ########################
-## CTRL + T    
+## CTRL + T
 ########################
 # For ctrl-t file search
 export FZF_CTRL_T_COMMAND="fd --type f --hidden $($FZF_HOME/fzf_ignore.sh fd)";
@@ -48,7 +48,7 @@ export FZF_CTRL_T_OPTS="
 "
 
 ########################
-## ALT + C / ESC + C    
+## ALT + C / ESC + C
 ########################
 # For directory search with alt-c
 export FZF_ALT_C_COMMAND="fd --type d --hidden --follow $($FZF_HOME/fzf_ignore.sh fd)";

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 定义 .FZF_IGNORE 文件的位置
-FZF_IGNORE_FILE="$HOME/.config/zsh/fzf/.fdignore"
+FZF_IGNORE_FILE="$HOME/.config/zsh/fzf/.fzfignore"
 
 _read_fzf_ignore() {
 
