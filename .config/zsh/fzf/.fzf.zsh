@@ -43,6 +43,8 @@ export FZF_CTRL_T_OPTS="
 --bind 'ctrl-v:execute(code {+})'                               # Open in VS Code
 --bind 'ctrl-a:select-all'                                      # Select all items
 --bind 'enter:execute(echo {+} | xargs -o vim)'                 # Default open in vim
+--bind '?:reload(fd --type f)'
+--bind '>:reload(fd --type f --hidden \$(cat \$FZF_HOME/.fdignore | xargs -I {} echo --exclude \"{}\"))'
 "
 
 ########################
