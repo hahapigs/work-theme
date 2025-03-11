@@ -28,7 +28,7 @@ export FZF_CTRL_R_OPTS="
 ## CTRL + T    
 ########################
 # For ctrl-t file search
-export FZF_CTRL_T_COMMAND="fd --type f --hidden $(cat $FZF_HOME/.fdignore | xargs -I {} echo --exclude '"{}"' | tr '\n' ' ')";
+export FZF_CTRL_T_COMMAND="fd --type f --hidden $($FZF_HOME/fzf_ignore.sh fd)";
 # Custom preview for ctrl-t
 # ❗️ 设置 --walker 或 --walker-skip 会覆盖 FZF_CTRL_T_COMMAND (e.g. --walker-skip .git,node_modules,target)
 export FZF_CTRL_T_OPTS="
@@ -51,7 +51,7 @@ export FZF_CTRL_T_OPTS="
 ## ALT + C / ESC + C    
 ########################
 # For directory search with alt-c
-export FZF_ALT_C_COMMAND="fd --type d --hidden --follow $(cat $FZF_HOME/.fdignore | xargs -I {} echo --exclude '"{}"' | tr '\n' ' ')"
+export FZF_ALT_C_COMMAND="fd --type d --hidden --follow $($FZF_HOME/fzf_ignore.sh fd)";
 export FZF_ALT_C_OPTS="
 --style full
 --border-label ' 目录跳转器 '
@@ -92,13 +92,13 @@ _fzf_comprun() {
 # Use fd (https://github.com/sharkdp/fd) for listing path candidates
 # e.g. vim ~/**<tab> runs with the prefix () as the first argument fzf_compgen_path() ~/
 _fzf_compgen_path() {
-  fd --hidden --follow $(cat $FZF_HOME/.fdignore | xargs -I {} echo --exclude {} | tr '\n' ' ') . "$1"
+  fd --hidden --follow $($FZF_HOME/fzf_ignore.sh fd) . "$1"
 }
 
 # Use fd to generate the list for directory completion
 # e.g. cd foo**<tab> runs with the prefix () as the first argument fzf_compgen_dir() foo
 _fzf_compgen_dir() {
-  fd --type d --hidden --follow $(cat $FZF_HOME/.fdignore | xargs -I {} echo --exclude {} | tr '\n' ' ') . "$1"
+  fd --type d --hidden --follow $($FZF_HOME/fzf_ignore.sh fd) . "$1"
 }
 
 ##########################################################
