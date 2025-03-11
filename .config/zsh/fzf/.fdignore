@@ -3,3 +3,9 @@
 *.class
 *.pyc
 node_modules
+
+Pictures/
+Music/
+Movies/
+Downloads/
+Public/
