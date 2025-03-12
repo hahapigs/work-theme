@@ -123,7 +123,10 @@ source ~/.bash_profile
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # autojump
-[ -f /usr/local/etc/profile.d/autojump.sh  ] && . /usr/local/etc/profile.d/autojump.sh
+# brew install autojump
+# [ -f /usr/local/etc/profile.d/autojump.sh  ] && . /usr/local/etc/profile.d/autojump.sh
+# zinit light wting/autojump
+# [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
 
 # z
 # [ -f /usr/local/etc/profile.d/z.sh  ] && . /usr/local/etc/profile.d/z.sh
