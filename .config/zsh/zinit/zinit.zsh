@@ -162,6 +162,9 @@ zinit light sharkdp/fd
 
 # Lazy-load fzf
 # https://github.com/junegunn/fzf
+# zinit的git-clone方式，手动设置补全、键位绑定和配置加载，但是zinit-delete不能完全卸载，卸载需要先手动执行./uninstall
+# zinit ice wait"0b" lucid atclone"./install" atpull"%atclone" atinit"zicompinit; zicdreplay" atload"source $HOME/.fzf.zsh"
+# zinit的binaryi-releases安装方式，适合快速安装，无安装过程，但是无fzf-tmux命令
 zinit ice wait"0b" lucid from="gh-r" as"program" atload"source <(fzf --zsh); bindkey '^R' fzf-history-widget; bindkey '^T' fzf-file-widget"
 zinit light junegunn/fzf
 
