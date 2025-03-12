@@ -142,6 +142,11 @@ export YSU_MESSAGE_POSITION="after"
 zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/lsd"
 zinit light lsd-rs/lsd
 
+# load autojump
+# ❗️ 如果想要使用fzf preview，延迟加载(wai"0a" lucid)会导致其失效
+zinit ice atclone"python3 install.py" atpull"%atclone" atinit"zicompinit; zicdreplay"  atload="source $HOME/.autojump/etc/profile.d/autojump.sh"
+zinit light wting/autojump
+
 # Lazy-load zoxide
 zinit ice wait"0a" lucid from"gh-r" as"program" atclone"./zoxide init zsh > init.zsh" atpull"%atclone" src"init.zsh" atload='eval "$(zoxide init zsh)"'
 zinit light ajeetdsouza/zoxide
