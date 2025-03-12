@@ -147,11 +147,37 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 ########################
 ## autojump
 ########################
-# ❗️ 如果安装了amazon-q或fig，请务必保证和 j 不同名，否则fzf preview在前两者之后弹出，影响体验。
-# 确保此函数在source ~/autojump.sh之后加载，并且wting/autojump不可以开启wait lucid，否则fzf preview不会生效
+# ❗️ 如果安装了amazon-q，同时保留两者，请务必保证和 j 不同名，否则fzf preview在前两者之后弹出，影响体验。
+# 确保此函数在source autojump.sh 之后加载，否则fzf preview不会生效
 # amazon-q界面更友好，fzf更贴合terminal，前者支持模糊检索，后者自动补全效率更高
 jr() {
   local dir
-  dir=$(autojump -s | sort -nr | fzf --height 40% --reverse --preview 'exa -l --git --icons {}') && cd $(echo "$dir" | awk '{print $2}')
+   dir=$(autojump -s | sort -nr | awk '{print $2}' | fzf --height 40% --reverse --preview 'exa -l --git --icons {}') && cd "$dir"
 }
 
+########################
+## ps
+########################
+# zoxide search --interactive
+zr() {
+  local dir
+  dir=$(zoxide query -l | fzf --height 40% --reverse --preview 'exa -l --git --icons {}') && cd "$dir"
+}
+
+########################
+## ps
+########################
+# fkill - kill processes - list only the ones you can kill. Modified the earlier script.
+fkill() {
+  local pid
+  if [ "$UID" != "0" ]; then
+    pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+  else
+    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+  fi
+
+  if [ "x$pid" != "x" ]
+  then
+    echo $pid | xargs kill -${1:-9}
+  fi
+}
