@@ -143,8 +143,8 @@ zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/lsd"
 zinit light lsd-rs/lsd
 
 # load autojump
-# ❗️ 如果想要使用fzf preview，延迟加载(wai"0a" lucid)会导致其失效
-zinit ice atclone"python3 install.py" atpull"%atclone" atinit"zicompinit; zicdreplay"  atload="source $HOME/.autojump/etc/profile.d/autojump.sh"
+# https://github.com/wting/autojump
+zinit ice wait"0a" lucid atclone"python3 install.py" atpull"%atclone" atinit"zicompinit; zicdreplay" pick"bin/autojump.zsh" atload="source $HOME/.autojump/etc/profile.d/autojump.sh"
 zinit light wting/autojump
 
 # Lazy-load zoxide
@@ -153,7 +153,7 @@ zinit light ajeetdsouza/zoxide
 
 # Lazy-load fd
 zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/fd"
-zinit load sharkdp/fd
+zinit light sharkdp/fd
 
 # Lazy-load bat
 # https://github.com/sharkdp/bat
@@ -161,10 +161,12 @@ zinit load sharkdp/fd
 # zinit load sharkdp/bat
 
 # Lazy-load fzf
+# https://github.com/junegunn/fzf
 zinit ice wait"0b" lucid from="gh-r" as"program" atload"source <(fzf --zsh); bindkey '^R' fzf-history-widget; bindkey '^T' fzf-file-widget"
 zinit light junegunn/fzf
 
 # Lazy-load forgit
+# https://github.com/wfxr/forgit
 zinit ice wait"0b" lucid
 zinit load wfxr/forgit
 
