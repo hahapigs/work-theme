@@ -9,6 +9,7 @@ export FZF_DEFAULT_OPTS_FILE="$FZF_HOME/.fzfrc"
 export FZF_DEFAULT_OPTS="--preview '$FZF_HOME/fzf_preview.sh {}'"   # permission denied，execute chmod +x fzf_preview.sh
 # Default command to use when input is tty
 export FZF_DEFAULT_COMMAND='fd --type f'
+
 ########################
 ## CTRL + R
 ########################
@@ -137,5 +138,20 @@ zstyle ':fzf-tab:*' use-fzf-default-opts yes
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 # tmux tmux >= 3.2
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
+##########################################################
+##### Custom function
+##########################################################
+
+########################
+## autojump
+########################
+# ❗️ 如果安装了amazon-q或fig，请务必保证和 j 不同名，否则fzf preview在前两者之后弹出，影响体验。
+# 确保此函数在source ~/autojump.sh之后加载，并且wting/autojump不可以开启wait lucid，否则fzf preview不会生效
+# amazon-q界面更友好，fzf更贴合terminal，前者支持模糊检索，后者自动补全效率更高
+jr() {
+  local dir
+  dir=$(autojump -s | sort -nr | fzf --height 40% --reverse --preview 'exa -l --git --icons {}') && cd $(echo "$dir" | awk '{print $2}')
+}
 
