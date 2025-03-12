@@ -3,7 +3,8 @@
 --height 80%
 --border rounded
 --margin 1
---multi
+--tmux
+# --multi
 --no-hscroll
 --layout reverse
 --inline-info
