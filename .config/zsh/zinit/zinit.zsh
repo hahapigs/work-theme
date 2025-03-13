@@ -168,6 +168,10 @@ zinit light sharkdp/fd
 zinit ice wait"0b" lucid from="gh-r" as"program" atload"source <(fzf --zsh); bindkey '^R' fzf-history-widget; bindkey '^T' fzf-file-widget"
 zinit light junegunn/fzf
 
+# https://github.com/junegunn/fzf-git.sh
+zinit ice wait"0c" lucid atload"source fzf-git.sh"
+zinit light junegunn/fzf-git.sh
+
 # Lazy-load forgit
 # https://github.com/wfxr/forgit
 zinit ice wait"0b" lucid
