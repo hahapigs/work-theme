@@ -28,7 +28,7 @@
 # [[ ! command -v zinit ]] && brew install zinit
 [[ ! -d $(brew --prefix zinit) ]] && brew install zinit
 # Load zinit
-source $(brew --prefix zinit)/zinit/zinit.zsh
+source $(brew --prefix zinit)/zinit.zsh
 
 ## Basic
 # zinit snippet <URL>                       # Raw Syntax with URL
