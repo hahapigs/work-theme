@@ -24,8 +24,11 @@ poems = [
     "一生如牛不得闲，闲时已与山共眠",
 ]
 
+# 配置文件目录
+zsh_conf_home = os.environ.get("ZSH_CONF_HOME", os.path.expanduser("~/.config/zsh"))
+
 # 计数器文件路径
-counter_file = os.path.expanduser("~/.p10k-data/.poem_counter")
+counter_file = os.path.join(zsh_conf_home, "theme---p10k", "data", ".poem_counter")
 
 def get_poem():
     # 读取计数器

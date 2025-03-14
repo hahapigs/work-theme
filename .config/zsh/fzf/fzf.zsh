@@ -2,7 +2,7 @@
 ##### junegunn/fzf
 ##########################################################
 # 主目录
-export FZF_HOME="$CONF_ZSH_HOME/fzf"
+export FZF_HOME="$ZSH_CONF_HOME/fzf"
 # Default options in a file
 export FZF_DEFAULT_OPTS_FILE="$FZF_HOME/.fzfrc"
 # Default options
