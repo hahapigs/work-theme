@@ -6,7 +6,7 @@ target="$1"
 # 如果是文件
 if [[ -f "$target" ]]; then
   # 使用 bat 显示文件内容（带行号和语法高亮）
-  bat --style=numbers --color=always "$target" 2>/dev/null || cat "$target"
+  bat --style=numbers,changes --color=always "$target" 2>/dev/null || cat "$target"
 # 如果是目录
 elif [[ -d "$target" ]]; then
   # 使用 exa 显示目录树（带图标）
