@@ -8,6 +8,7 @@
 ##########################################################
 ## Automatic
 # [[ ! -d "${HOME}/.local/share/zinit" ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+# After installing and reloading the shell, compile Zinit via: zinit self-update
 
 ## Manual
 # ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -21,13 +22,13 @@
 # source "${ZINIT_HOME}/zinit.zsh"
 # autoload -Uz _zinit
 # (( ${+_comps} )) && _comps[zinit]=_zinit
+# Reload Zsh to install Zinit: exec zsh
 
 ## MacOS (Homebrew)
 # [[ ! command -v zinit ]] && brew install zinit
 [[ ! -d $(brew --prefix zinit) ]] && brew install zinit
-
 # Load zinit
-source /usr/local/opt/zinit/zinit.zsh
+source $(brew --prefix zinit)/zinit/zinit.zsh
 
 ## Basic
 # zinit snippet <URL>                       # Raw Syntax with URL

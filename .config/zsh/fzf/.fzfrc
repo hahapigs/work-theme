@@ -4,7 +4,7 @@
 --border rounded
 --margin 1
 --tmux
-# --multi
+--multi
 --no-hscroll
 --layout reverse
 --inline-info

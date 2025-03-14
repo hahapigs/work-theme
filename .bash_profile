@@ -21,34 +21,12 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 export PATH="$PATH:$HOME/.jenv/bin"
 eval "$(jenv init -)"
 
-##########################################################
-## Basic Environment Variables
-##########################################################
-alias ls="lsd"                  # list all files and directories
-alias ll="ls -l"                # list all files and directories in long format
-alias lla="ll -a"               # list all files and directories in long format, including hidden ones
-alias lt="ls --tree"            # 
-alias c="clear"                 # clear the screen
-# alias qq="exit"               # exit the terminal
-alias mkdir="mkdir -pv"         # create directories with verbose output
-alias cp="cp -iv"               # copy files interactively with verbose output
-alias mv="mv -iv"               # move files interactively witch verbose output
-alias rm="rm -iv"               # remove files interactively with verbose output
-alias rmdir="rmdir -v"          # remove directories with verbose output
-alias grep="grep --color=auto"  # highlight search matches
-alias fgrep="fgrep --color=auto"    # hightlight fixed string matches
-alias egrep="egrep --color=autp"    # hightlight extended regex matches
-
 # 查看已安装 JDK
 # /usr/libexec/java_home -V
 # ls /Library/Java/JavaVirtualMachines
 
 # 设置JDK 8
 # export JAVA_8_HOME="$(/usr/libexec/java_home -v 1.8)"
-# 设置JDK 9
-# export JAVA_9_HOME="$(/usr/libexec/java_home -v 9)"
-# 设置JDK 10 
-# export JAVA_10_HOME="$(/usr/libexec/java_home -v 10)"
 # 设置JDK 11
 # export JAVA_11_HOME="$(/usr/libexec/java_home -v 11)"
 
@@ -64,10 +42,6 @@ alias egrep="egrep --color=autp"    # hightlight extended regex matches
 
 # 映射jdk8
 # alias jdk8="export JAVA_HOME=$JAVA_8_HOME"
-# 映射jdk9
-# alias jdk9="export JAVA_HOME=$JAVA_9_HOME"
-# 映射jdk10
-# alias jdk10="export JAVA_HOME=$JAVA_10_HOME"
 # 映射jdk11
 # alias jdk11="export JAVA_HOME=$JAVA_11_HOME"
 
@@ -77,6 +51,38 @@ alias egrep="egrep --color=autp"    # hightlight extended regex matches
 export GO111MODULE=on
 export GOPROXY=https://mirrors.aliyun.com/goproxy/ 
 # export GOOS=linux
+
+##########################################################
+## lazygit Environment Variables
+##########################################################
+# https://github.com/jesseduffield/lazygit/
+# 查看默认位置lazygit -cd
+# 覆盖默认文件位置 lazygit -ucf ~/.config/lazygit/config.yml
+export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
+
+##########################################################
+## lazydocker Environment Variables
+##########################################################
+# https://github.com/jesseduffield/lazydocker
+export LAZYDOCKER_CONFIG="$HOME/.config/lazydocker/config.yml"
+
+##########################################################
+## Basic Environment Variables
+##########################################################
+alias ls="lsd"                  # list all files and directories
+alias ll="ls -l"                # list all files and directories in long format
+alias lla="ll -a"               # list all files and directories in long format, including hidden ones
+alias lt="ls --tree"            #
+alias c="clear"                 # clear the screen
+# alias qq="exit"               # exit the terminal
+alias mkdir="mkdir -pv"         # create directories with verbose output
+alias cp="cp -iv"               # copy files interactively with verbose output
+alias mv="mv -iv"               # move files interactively witch verbose output
+alias rm="rm -iv"               # remove files interactively with verbose output
+alias rmdir="rmdir -v"          # remove directories with verbose output
+alias grep="grep --color=auto"  # highlight search matches
+alias fgrep="fgrep --color=auto"    # hightlight fixed string matches
+alias egrep="egrep --color=autp"    # hightlight extended regex matches
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bash_profile.post.bash"
