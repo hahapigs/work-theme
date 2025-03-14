@@ -25,3 +25,5 @@
 #   Example 1: use the C++ syntax for Arduino .ino files
 #   Example 2: Use ".gitignore"-style highlighting for ".ignore" files
 --map-syntax ".ignore:Git Ignore"
+--map-syntax ".fzfignore:Git Ignore"
+--map-syntax ".fzfrc:Bourne Again Shell (bash)"
