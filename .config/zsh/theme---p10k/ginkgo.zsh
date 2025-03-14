@@ -594,10 +594,10 @@
   typeset -g POWERLEVEL9K_CUSTOM_POEM_BACKGROUND=154
   # 自定义提示段
   typeset -g POWERLEVEL9K_CUSTOM_POEM="custom_poem"
-  # 还可以使用fortune来显示，例如：content=$(fortune ~/idiom)
+  # 还可以使用fortune来显示，例如：content=$(fortune $ZSH_CONF_HOME/theme---p10k/data/idiom)
   function custom_poem() {
     local content
-    if [[ $+commands[python3] ]] && content=$(python3 ~/.config/zsh/theme---p10k/data/poem.py); then
+    if [[ $+commands[python3] ]] && content=$(python3 $ZSH_CONF_HOME/theme---p10k/data/poem.py); then
       echo "$content \uf02d"
     else
       echo "error \uf119"

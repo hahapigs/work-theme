@@ -114,7 +114,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"source /Users/zhaohongliang/.zshrc
 
-export CONF_ZSH_HOME="$HOME/.config/zsh"
+export ZSH_CONF_HOME="$HOME/.config/zsh"
 
 source ~/.config/zsh/zinit/zinit.zsh
 source ~/.config/zsh/fzf/fzf.zsh
