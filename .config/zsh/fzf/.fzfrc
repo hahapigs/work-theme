@@ -27,6 +27,7 @@
 --padding 1,1,1,1
 --border rounded
 --border-label ' 🏄 Magic '
+--border-label-pos 2
 
 ####################
 ## List Section
@@ -46,6 +47,7 @@
 --tabstop 4
 --list-border rounded
 --list-label ''
+--list-label-pos 2
 
 ####################
 ## Input Section
@@ -57,6 +59,7 @@
 --filepath-word
 --input-border rounded
 --input-label ' Input '
+--input-label-pos 2
 
 ####################
 ## Preview Window
@@ -65,6 +68,7 @@
 --preview-window right:60%
 --preview-border rounded
 --preview-label ''
+--preview-label-pos 2
 
 ####################
 # HEADER
@@ -73,6 +77,7 @@
 --header-lines 0
 --header-border rounded
 --header-label ''
+--header-label-pos 2
 
 ####################
 ## Scripting
