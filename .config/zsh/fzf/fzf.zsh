@@ -15,10 +15,9 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 ########################
 # For command search with ctrl-r
 export FZF_CTRL_R_OPTS="
---style full
---border-label ' 命令查找器 '
---header-label ' ctrl+y 复制 '
---prompt='🚀  '
+--border-label ' 🚀 Commands '
+--header-label ' CTRL-T Copy to clipboard '
+--prompt=' '
 --bind 'focus:+transform-header:echo -n {2..} || $(echo "No command selected")'
 --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'    # Copy to clipboard
 --bind '>:preview:awk \"{print \\\$2}\" <<< {} | xargs man 2>/dev/null || echo \"Command error\" | boxes -a c -d tux'
@@ -31,12 +30,10 @@ export FZF_CTRL_R_OPTS="
 # For ctrl-t file search
 export FZF_CTRL_T_COMMAND="fd --type f --hidden $($FZF_HOME/fzf_ignore.sh fd)";
 # Custom preview for ctrl-t
-# ❗️ 设置 --walker 或 --walker-skip 会覆盖 FZF_CTRL_T_COMMAND (e.g. --walker-skip .git,node_modules,target)
 export FZF_CTRL_T_OPTS="
---style full
---border-label ' 文件查找器 '
---header-label ' 文件类型 '
---prompt '🔍  '
+--border-label ' 🔍 Files '
+--header-label ' File Type '
+--prompt '> '
 --marker='✓ '
 --bind 'focus:+transform-header:file --brief {} || $(echo "No file selected")'
 --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'    # Copy to clipboard
@@ -54,10 +51,9 @@ export FZF_CTRL_T_OPTS="
 # For directory search with alt-c
 export FZF_ALT_C_COMMAND="fd --type d --hidden --follow $($FZF_HOME/fzf_ignore.sh fd)";
 export FZF_ALT_C_OPTS="
---style full
---border-label ' 目录跳转器 '
---header-label ' 绝对路径 '
---prompt '📁  '
+--border-label ' 📁 Directory '
+--header-label ' Absolute Path '
+--prompt '> '
 --bind 'focus:+transform-header:echo \$(pwd | awk \"{print \\\$1}\")/{} || $(echo "No directory selected")'
 "
 
@@ -69,9 +65,9 @@ export FZF_COMPLETION_TRIGGER='**'
 # Options to fzf command
 export FZF_COMPLETION_OPTS='--border --info=inline'
 # Options for path completion (e.g. vim **<TAB>)  file,dir,follow,hidden
-export FZF_COMPLETION_PATH_OPTS='--walker-skip .git,node_modules,target,*.class,Pictures,Music,Movies,'
+export FZF_COMPLETION_PATH_OPTS='--walker file,dir,follow,hidden'
 # Options for directory completion (e.g. cd **<TAB>) dir,follow
-export FZF_COMPLETION_DIR_OPTS='--walker-skip .git,node_modules,target,Pictures,Music,Movies'
+export FZF_COMPLETION_DIR_OPTS='--walker file,follow'
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
 # - You should make sure to pass the rest of the arguments ($@) to fzf.
@@ -88,7 +84,6 @@ _fzf_comprun() {
 }
 
 ### Customizing completion source for paths and directories
-# ❗️ 会覆盖 FZF_COMPLETION_PATH_OPTS 和 FZF_COMPLETION_DIR_OPTS 的 --walker 和 --walker-skip
 # Use fd (https://github.com/sharkdp/fd) for listing path candidates
 # e.g. vim ~/**<tab> runs with the prefix () as the first argument fzf_compgen_path() ~/
 _fzf_compgen_path() {

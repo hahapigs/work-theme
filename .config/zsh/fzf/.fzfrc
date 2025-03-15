@@ -1,23 +1,95 @@
+####################
+## Global Style
+####################
 --style full
---border --padding 1,2
---height 80%
---border rounded
---margin 1
---tmux
---multi
---no-hscroll
---layout reverse
---inline-info
---input-label ' Input '
---pointer '➤ '
---color 'bg:#1e1e2e,bg+:#313244,fg:#cdd6f4,fg+:#cdd6f4,hl:214,hl+:76'
+--color 'bg:#1e1e2e,bg+:#313244'
+--color 'fg:#cdd6f4,fg+:#cdd6f4'
+--color 'hl:214,hl+:76'
 --color 'border:#aaaaaa,label:#cccccc,gutter:8'
---color 'preview-border:#9999cc,preview-label:#ccccff'
---color 'input-border:#996666,input-label:#ffcccc,prompt:#cba6f7'
+--color 'input-border:#996666,input-label:#ffcccc'
 --color 'header:#f38ba8,header-border:#6699cc,header-label:#99ccff'
 --color 'list-border:#669966,list-label:#99cc99'
---color 'pointer:76,marker:226'
+--color 'preview-border:#9999cc,preview-label:#ccccff'
+--color 'prompt:#cba6f7,pointer:76,marker:226'
+
+####################
+## Display Mode
+####################
+--height 80%
+--min-height 20+
+--tmux 90%,70%
+
+####################
+## Layout
+####################
+--layout reverse
+--margin 1,1,1,1
+--padding 1,1,1,1
+--border rounded
+--border-label ' 🏄 Magic '
+
+####################
+## List Section
+####################
+--multi
+--highlight-line
+# --cycle
+--no-multi-line
+--track
+# --tac
+--keep-right
+--scroll-off 0
+--hscroll-off 10
+--jump-labels '$'
+--pointer '➤ '
+--marker '✓ '
+--tabstop 4
+--list-border rounded
+--list-label ''
+
+####################
+## Input Section
+####################
+--prompt ' '
+--info inline-right:'< '
+--separator '-'
+--no-separator
+--filepath-word
+--input-border rounded
+--input-label ' Input '
+
+####################
+## Preview Window
+####################
 # --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (exa --tree --level=2 --icons {} || lsd --tree --depth=2 {} || tree -C {} | less)) || echo {} 2> /dev/null | head -200'
+--preview-window right:60%
+--preview-border rounded
+--preview-label ''
+
+####################
+# HEADER
+####################
+--header ' '
+--header-lines 0
+--header-border rounded
+--header-label ''
+
+####################
+## Scripting
+####################
+--select-1
+--exit-0
+
+####################
+## Directory Traversal  (Only used when $FZF_DEFAULT_COMMAND is not set)
+####################
+--walker file,dir,follow,hidden
+--walker-root .
+--walker-skip .git,node_modules,target,Pictures,Music,Movies,DockerData,data
+
+####################
+## Key or Event Binding
+####################
 --bind 'result:transform-list-label:[[ -z $FZF_QUERY ]] && echo " $FZF_MATCH_COUNT items " || echo " $FZF_MATCH_COUNT matches for [$FZF_QUERY] "'
 --bind 'ctrl-/:toggle-preview'
 --bind 'ctrl-p:down'
@@ -27,4 +99,3 @@
 --bind 'ctrl-k:preview-up'
 --bind 'ctrl-d:preview-page-down'
 --bind 'ctrl-u:preview-page-up'
---exit-0
