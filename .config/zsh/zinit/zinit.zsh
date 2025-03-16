@@ -149,7 +149,8 @@ zinit ice wait"0a" lucid atclone"python3 install.py" atpull"%atclone" pick"bin/a
 zinit light wting/autojump
 
 # Lazy-load zoxide
-zinit ice wait"0a" lucid from"gh-r" as"program" atclone"./zoxide init zsh > init.zsh" atpull"%atclone" src"init.zsh" atload='eval "$(zoxide init zsh)"'
+# https://github.com/ajeetdsouza/zoxide
+zinit ice wait"0a" lucid from"gh-r" as"program" atload='eval "$(zoxide init zsh)"'
 zinit light ajeetdsouza/zoxide
 
 # Lazy-load fd
@@ -169,8 +170,9 @@ zinit light sharkdp/fd
 zinit ice wait"0b" lucid from="gh-r" as"program" atload"source <(fzf --zsh); bindkey '^R' fzf-history-widget; bindkey '^T' fzf-file-widget"
 zinit light junegunn/fzf
 
+# Lazy-load fzf-git
 # https://github.com/junegunn/fzf-git.sh
-zinit ice wait"0c" lucid atload"source fzf-git.sh"
+zinit ice wait"0c" lucid pick"fzf-git.sh"
 zinit light junegunn/fzf-git.sh
 
 # Lazy-load forgit
