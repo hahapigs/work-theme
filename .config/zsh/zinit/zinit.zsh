@@ -143,7 +143,7 @@ export YSU_MESSAGE_POSITION="after"
 zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/lsd"
 zinit light lsd-rs/lsd
 
-# load autojump
+# Lazy-load autojump
 # https://github.com/wting/autojump
 zinit ice wait"0a" lucid atclone"python3 install.py" atpull"%atclone" pick"bin/autojump.zsh"
 zinit light wting/autojump
