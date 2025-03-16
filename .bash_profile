@@ -30,6 +30,12 @@ export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
 export LAZYDOCKER_CONFIG="$HOME/.config/lazydocker/config.yml"
 
 ##########################################################
+## Eza  Environment Variables
+##########################################################
+# https://github.com/eza-community/eza
+export EZA_CONFIG_DIR="$HOME/.config/eza"
+
+##########################################################
 ## Go Environment Variables
 ##########################################################
 export GO111MODULE=on
