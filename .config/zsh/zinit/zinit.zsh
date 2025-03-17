@@ -8,7 +8,7 @@
 ##########################################################
 ## Automatic
 # [[ ! -d "${HOME}/.local/share/zinit" ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
-# After installing and reloading the shell, compile Zinit via: zinit self-update
+# NOTE: After installing and reloading the shell, compile Zinit via: `zinit self-update`
 
 ## Manual
 # ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -22,12 +22,11 @@
 # source "${ZINIT_HOME}/zinit.zsh"
 # autoload -Uz _zinit
 # (( ${+_comps} )) && _comps[zinit]=_zinit
-# Reload Zsh to install Zinit: exec zsh
+# NOTE: Reload Zsh to install Zinit: `exec zsh`
 
 ## MacOS (Homebrew)
 # [[ ! command -v zinit ]] && brew install zinit
 [[ ! -d $(brew --prefix zinit) ]] && brew install zinit
-# Load zinit
 source $(brew --prefix zinit)/zinit.zsh
 
 ## Basic
@@ -65,7 +64,7 @@ zinit snippet OMZP::git
 # zinit snippet OMZP::z
 
 # Lazy-load sudo
-zinit ice wait"0a" lucid
+zinit ice wait"0a" lucid if"[[ -n '$TMUX' ]] || [[ $TERM_PROGRAM != 'WarpTerminal' ]]"
 zinit snippet OMZP::sudo
 
 # Lazy-load copypath
@@ -73,7 +72,7 @@ zinit ice wait"0a" lucid
 zinit snippet OMZP::copypath
 
 # Lazy-load copybuffer, bindkey "^O" copybuffer
-# 快速复制当前行命令, WarpTerminal 不支持copybuffer，但是可以通过shift+up/down实现快速选中或取消选中
+# NOTE: 快速复制当前行命令, WarpTerminal 不支持copybuffer，但是可以通过shift+up/down实现快速选中或取消选中
 zinit ice wait"0a" lucid if"[[ -n '$TMUX' ]] || [[ $TERM_PROGRAM != 'WarpTerminal' ]]"
 zinit snippet OMZP::copybuffer
 
@@ -94,13 +93,13 @@ zinit snippet OMZP::dash
 
 # Lazy-load fzf-tab
 # https://github.com/Aloxaf/fzf-tab
-# ❗️ fzf-tab 对加载顺序有要求，将它放在 compinit 之后、zsh-autosuggestions 和 fast-syntax-highlighting 和 zsh-syntax-highlighting 之前加载，否则会导致 tab 快捷键无效
+# NOTE: fzf-tab 对加载顺序有要求，将它放在 compinit 之后、zsh-autosuggestions 和 fast-syntax-highlighting 和 zsh-syntax-highlighting 之前加载，否则会导致 tab 快捷键无效
 zinit ice wait"0a" lucid if"[[ -n '$TMUX' ]] || [[ $TERM_PROGRAM != 'WarpTerminal' ]]"
 zinit light Aloxaf/fzf-tab
 
 # Lazy-load zsh-autosuggestions with priority loading
 # Changed wait to "0a" to load before syntax highlighting
-# 没有 atload='_zsh_autosuggest_start' 会影响首个 prompt 失去提示功能
+# NOTE: 没有 atload='_zsh_autosuggest_start' 会影响首个 prompt 失去提示功能
 zinit ice wait"0a" lucid atload='_zsh_autosuggest_start'
 zinit light zsh-users/zsh-autosuggestions
 
@@ -131,7 +130,7 @@ zinit light MichaelAquilina/zsh-you-should-use
 export YSU_MESSAGE_POSITION="after"
 
 # Lazy-load vi-mode
-# 🐛 会导致其他插件快捷键绑定问题（暂时注释）
+# 🐛 NOTE: 此插件会导致其他插件快捷键绑定问题（暂时注释）
 # zinit ice wait"0" lucid if"[[ -n '$TMUX' ]] || [[ '$TERM_PROGRAM' != 'WarpTerminal' ]]" depth=1
 # zinit light jeffreytse/zsh-vi-mode
 
@@ -148,6 +147,12 @@ zinit light lsd-rs/lsd
 zinit ice wait"0a" lucid atclone"python3 install.py" atpull"%atclone" pick"bin/autojump.zsh"
 zinit light wting/autojump
 
+# Lazy-load eza
+# https://github.com/eza-community/eza
+# ❓ NOTE: No `Darwin` release version provided
+# zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/eza"
+# zinit light eza-community/eza
+
 # Lazy-load zoxide
 # https://github.com/ajeetdsouza/zoxide
 zinit ice wait"0a" lucid from"gh-r" as"program" atload='eval "$(zoxide init zsh)"'
@@ -159,14 +164,15 @@ zinit light sharkdp/fd
 
 # Lazy-load bat
 # https://github.com/sharkdp/bat
+# TODO: The unverified code should be reviewed before use
 # zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/bat"
 # zinit load sharkdp/bat
 
 # Lazy-load fzf
 # https://github.com/junegunn/fzf
-# zinit的git-clone方式，手动设置补全、键位绑定和配置加载，但是zinit-delete不能完全卸载，卸载需要先手动执行./uninstall
+# NOTE: zinit的git-clone方式，手动设置补全、键位绑定和配置加载，但是zinit-delete不能完全卸载，卸载需要先手动执行./uninstall
 # zinit ice wait"0b" lucid atclone"./install" atpull"%atclone" atload"source $HOME/.fzf.zsh"
-# zinit的binaryi-releases安装方式，适合快速安装，无安装过程，但是无fzf-tmux命令
+# NOTE: zinit的binaryi-releases安装方式，适合快速安装，无安装过程，但是无fzf-tmux命令
 zinit ice wait"0b" lucid from="gh-r" as"program" atload"source <(fzf --zsh); bindkey '^R' fzf-history-widget; bindkey '^T' fzf-file-widget"
 zinit light junegunn/fzf
 
