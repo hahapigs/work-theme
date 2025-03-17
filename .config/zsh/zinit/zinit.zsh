@@ -1,5 +1,5 @@
 ######################################################################################################################################
-##### github: https://github.com/zdharma-continuum/zinit?tab=readme-ov-file#automatic
+##### github: https://github.com/zdharma-continuum/zinit
 ##### wiki: https://zdharma-continuum.github.io/zinit/wiki/
 ######################################################################################################################################
 
@@ -64,7 +64,8 @@ zinit snippet OMZP::git
 # zinit snippet OMZP::z
 
 # Lazy-load sudo
-zinit ice wait"0a" lucid if"[[ -n '$TMUX' ]] || [[ $TERM_PROGRAM != 'WarpTerminal' ]]"
+zinit ice wait"0a" lucid
+# NOTE: WarpTerminal 不支持
 zinit snippet OMZP::sudo
 
 # Lazy-load copypath
@@ -72,8 +73,8 @@ zinit ice wait"0a" lucid
 zinit snippet OMZP::copypath
 
 # Lazy-load copybuffer, bindkey "^O" copybuffer
-# NOTE: 快速复制当前行命令, WarpTerminal 不支持copybuffer，但是可以通过shift+up/down实现快速选中或取消选中
-zinit ice wait"0a" lucid if"[[ -n '$TMUX' ]] || [[ $TERM_PROGRAM != 'WarpTerminal' ]]"
+# NOTE: WarpTerminal 不支持
+zinit ice wait"0a" lucid
 zinit snippet OMZP::copybuffer
 
 # Lazy-load command-not-found
@@ -93,8 +94,10 @@ zinit snippet OMZP::dash
 
 # Lazy-load fzf-tab
 # https://github.com/Aloxaf/fzf-tab
-# NOTE: fzf-tab 对加载顺序有要求，将它放在 compinit 之后、zsh-autosuggestions 和 fast-syntax-highlighting 和 zsh-syntax-highlighting 之前加载，否则会导致 tab 快捷键无效
-zinit ice wait"0a" lucid if"[[ -n \$TMUX ]] || [[ \$TERM_PROGRAM != 'WarpTerminal' ]]"
+# NOTE: fzf-tab 对加载顺序有要求，需要将它放在 compinit 之后、zsh-autosuggestions 和 fast-syntax-highlighting 和 zsh-syntax-highlighting 之前加载，否则会导致 tab 快捷键无效
+# NOTE: 如果有更强大的`amazon-q`，不需要开启此插件，但是`amazon-q`截止现在仅支持`terminal`,`hyper`,`iterm2`,`vscode`
+# NOTE: WarpTerminal 不支持，且只在 `tmux` 模式下有效
+zinit ice wait"0a" lucid
 zinit light Aloxaf/fzf-tab
 
 # Lazy-load zsh-autosuggestions with priority loading
