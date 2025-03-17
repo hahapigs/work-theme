@@ -94,13 +94,13 @@ zinit snippet OMZP::dash
 # Lazy-load fzf-tab
 # https://github.com/Aloxaf/fzf-tab
 # NOTE: fzf-tab 对加载顺序有要求，将它放在 compinit 之后、zsh-autosuggestions 和 fast-syntax-highlighting 和 zsh-syntax-highlighting 之前加载，否则会导致 tab 快捷键无效
-zinit ice wait"0a" lucid if"[[ -n '$TMUX' ]] || [[ $TERM_PROGRAM != 'WarpTerminal' ]]"
+zinit ice wait"0a" lucid if"[[ -n \$TMUX ]] || [[ \$TERM_PROGRAM != 'WarpTerminal' ]]"
 zinit light Aloxaf/fzf-tab
 
 # Lazy-load zsh-autosuggestions with priority loading
 # Changed wait to "0a" to load before syntax highlighting
-# NOTE: 没有 atload='_zsh_autosuggest_start' 会影响首个 prompt 失去提示功能
-zinit ice wait"0a" lucid atload='_zsh_autosuggest_start'
+# NOTE: 没有 atload='!_zsh_autosuggest_start' 会影响首个 prompt 失去提示功能
+zinit ice wait"0a" lucid atload='!_zsh_autosuggest_start'
 zinit light zsh-users/zsh-autosuggestions
 
 # Lazy-load syntax highlighting AFTER autosuggestions
@@ -121,7 +121,7 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
 # Lazy-load touchbar
-# zinit ice if"[[ '$TERM_PROGRAM' = 'iTerm.app' ]] && [[ '$(uname)' == 'Darwin' ]]" wait"1" lucid
+# zinit ice wait"1" lucid if"[[ \$TERM_PROGRAM = 'iTerm.app' ]] && [[ \$(uname) == 'Darwin' ]]"
 # zinit light zsh-users/zsh-apple-touchbar
 
 # Lazy-load zsh-you-should-use
@@ -131,11 +131,11 @@ export YSU_MESSAGE_POSITION="after"
 
 # Lazy-load vi-mode
 # 🐛 NOTE: 此插件会导致其他插件快捷键绑定问题（暂时注释）
-# zinit ice wait"0" lucid if"[[ -n '$TMUX' ]] || [[ '$TERM_PROGRAM' != 'WarpTerminal' ]]" depth=1
+# zinit ice wait"0" lucid if"[[ -n \$TMUX ]] || [[ \$TERM_PROGRAM != 'WarpTerminal' ]]" depth=1
 # zinit light jeffreytse/zsh-vi-mode
 
 ##########################################################
-##### Installing Command-Line Tools and load it
+##### Installing Command-Line Tools and load them
 ##########################################################
 # Lazy-load lsd
 # https://github.com/lsd-rs/lsd
@@ -164,9 +164,8 @@ zinit light sharkdp/fd
 
 # Lazy-load bat
 # https://github.com/sharkdp/bat
-# TODO: The unverified code should be reviewed before use
-# zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/bat"
-# zinit load sharkdp/bat
+zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/bat"
+zinit load sharkdp/bat
 
 # Lazy-load fzf
 # https://github.com/junegunn/fzf
