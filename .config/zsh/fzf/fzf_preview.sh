@@ -12,7 +12,7 @@ elif [[ -d "$target" ]]; then
   # 使用 eza 显示目录树（带图标）
   eza --tree --level 2 --icons --color always "$target" 2>/dev/null ||
   # 如果 eza 不可用，使用 exa 显示目录树
-  exa --tree --level 2 --icons "$target" 2>/dev/null ||
+  exa --tree --level 2 --icons --color always "$target" 2>/dev/null ||
   # 如果 exa 不可用，使用 lsd 显示目录树
   lsd --tree --depth 2 --icon always --color always "$target" 2>/dev/null ||
   # 如果 lsd 不可用，使用 tree 显示目录树
