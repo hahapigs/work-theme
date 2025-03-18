@@ -6,24 +6,6 @@
 ##########################################################
 ##### Install `zinit` and load it
 ##########################################################
-## Automatic
-# [[ ! -d "${HOME}/.local/share/zinit" ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
-# NOTE: After installing and reloading the shell, compile Zinit via: `zinit self-update`
-
-## Manual
-# ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-# [[ ! -d $ZINIT_HOME ]] &&
-#     print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f" &&
-#     command mkdir -p "$(dirname $ZINIT_HOME)"
-# [[ ! -d $ZINIT_HOME/.git ]] &&
-#     command git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME" && \
-#         print -P "%F{33}▓▒░ %F{34}Installation successful.%F" || \
-#         print -P "%F{160}▓▒░ The clone has failed.%F"
-# source "${ZINIT_HOME}/zinit.zsh"
-# autoload -Uz _zinit
-# (( ${+_comps} )) && _comps[zinit]=_zinit
-# NOTE: Reload Zsh to install Zinit: `exec zsh`
-
 ## MacOS (Homebrew)
 # [[ ! command -v zinit ]] && brew install zinit
 [[ ! -d $(brew --prefix zinit) ]] && brew install zinit
@@ -137,47 +119,6 @@ export YSU_MESSAGE_POSITION="after"
 # zinit ice wait"0" lucid if"[[ -n \$TMUX ]] || [[ \$TERM_PROGRAM != 'WarpTerminal' ]]" depth=1
 # zinit light jeffreytse/zsh-vi-mode
 
-##########################################################
-##### Installing Command-Line Tools and load them
-##########################################################
-# Lazy-load lsd
-# https://github.com/lsd-rs/lsd
-zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/lsd"
-zinit light lsd-rs/lsd
-
-# Lazy-load autojump
-# https://github.com/wting/autojump
-zinit ice wait"0a" lucid atclone"python3 install.py" atpull"%atclone" pick"bin/autojump.zsh"
-zinit light wting/autojump
-
-# Lazy-load eza
-# https://github.com/eza-community/eza
-# ❓ NOTE: No `Darwin` release version provided
-# zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/eza"
-# zinit light eza-community/eza
-
-# Lazy-load zoxide
-# https://github.com/ajeetdsouza/zoxide
-zinit ice wait"0a" lucid from"gh-r" as"program" atload='eval "$(zoxide init zsh)"'
-zinit light ajeetdsouza/zoxide
-
-# Lazy-load fd
-zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/fd"
-zinit light sharkdp/fd
-
-# Lazy-load bat
-# https://github.com/sharkdp/bat
-zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/bat"
-zinit load sharkdp/bat
-
-# Lazy-load fzf
-# https://github.com/junegunn/fzf
-# NOTE: zinit的git-clone方式，手动设置补全、键位绑定和配置加载，但是zinit-delete不能完全卸载，卸载需要先手动执行./uninstall
-# zinit ice wait"0b" lucid atclone"./install" atpull"%atclone" atload"source $HOME/.fzf.zsh"
-# NOTE: zinit的binaryi-releases安装方式，适合快速安装，无安装过程，但是无fzf-tmux命令
-zinit ice wait"0b" lucid from="gh-r" as"program" atload"source <(fzf --zsh); bindkey '^R' fzf-history-widget; bindkey '^T' fzf-file-widget"
-zinit light junegunn/fzf
-
 # Lazy-load fzf-git
 # https://github.com/junegunn/fzf-git.sh
 zinit ice wait"0c" lucid pick"fzf-git.sh"
@@ -187,11 +128,6 @@ zinit light junegunn/fzf-git.sh
 # https://github.com/wfxr/forgit
 zinit ice wait"0b" lucid
 zinit load wfxr/forgit
-
-# Lazy-load mcfly
-# https://github.com/cantino/mcfly
-zinit ice wait"0b" lucid from"gh-r" as"program" atload'eval "$(mcfly init zsh)"; bindkey "^R" fzf-history-widget; bindkey "^Y" mcfly-history-widget'
-zinit light cantino/mcfly
 
 ##########################################################
 ##### Load powerlevel10k theme
