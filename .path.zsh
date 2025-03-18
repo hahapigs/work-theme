@@ -29,7 +29,6 @@ prepend "$brewprefix/sbin"
 
 # Jenv
 prepend "$HOME/.jenv/bin"
-eval "$(jenv init -)"
 
 # Custom dotfiles binaries
 prepend "$HOME/.config/zsh/bin"

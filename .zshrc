@@ -122,6 +122,12 @@ source $ZSH_CONF_HOME/mcfly/mcfly.zsh
 source ~/.path.zsh
 source ~/.bash_profile
 
+source <(fzf --zsh)
+eval "$(jenv init -)"
+eval "$(mcfly init zsh)"
+eval "$(zoxide init zsh --cmd j)"
+eval "$(direnv hook zsh)"
+
 # fzf
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
