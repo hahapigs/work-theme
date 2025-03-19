@@ -126,14 +126,6 @@ zinit snippet OMZP::dash
 # zinit ice wait"1" lucid
 # zinit light romkatv/zsh-defer
 
-# Lazy-load fzf-tab
-# https://github.com/Aloxaf/fzf-tab
-# NOTE: fzf-tab 对加载顺序有要求，需要将它放在 compinit 之后、zsh-autosuggestions 和 fast-syntax-highlighting 和 zsh-syntax-highlighting 之前加载，否则会导致 tab 快捷键无效
-# NOTE: 如果有更强大的`amazon-q`，不需要开启此插件，但是`amazon-q`截止现在仅支持`terminal`,`hyper`,`iterm2`,`vscode`
-# NOTE: WarpTerminal 不支持，且只在 `tmux` 模式下有效
-zinit ice wait"0a" lucid
-zinit light Aloxaf/fzf-tab
-
 # Lazy-load zsh-autosuggestions with priority loading
 # Changed wait to "0a" to load before syntax highlighting
 # NOTE: 没有 atload='!_zsh_autosuggest_start' 会影响首个 prompt 失去提示功能
@@ -162,7 +154,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 # zinit light zsh-users/zsh-apple-touchbar
 
 # Lazy-load zsh-you-should-use
-zinit ice wait"1" lucid
+zinit ice wait"0a" lucid
 zinit light MichaelAquilina/zsh-you-should-use
 export YSU_MESSAGE_POSITION="after"
 
@@ -204,28 +196,38 @@ zinit light sharkdp/fd
 zinit ice wait"0a" lucid from"gh-r" as"program" pick"*/bat"
 zinit load sharkdp/bat
 
+# Lazy-load mcfly
+# https://github.com/cantino/mcfly
+zinit ice wait"0a" lucid from"gh-r" as"program" atload'eval "$(mcfly init zsh)"; bindkey "^R" fzf-history-widget; bindkey "^Y" mcfly-history-widget'
+zinit light cantino/mcfly
+
 # Lazy-load fzf
 # https://github.com/junegunn/fzf
 # NOTE: zinit的git-clone方式，手动设置补全、键位绑定和配置加载，但是zinit-delete不能完全卸载，卸载需要先手动执行./uninstall
 # zinit ice wait"0b" lucid atclone"./install" atpull"%atclone" atload"source $HOME/.fzf.zsh"
 # NOTE: zinit的binaryi-releases安装方式，适合快速安装，无安装过程，但是无fzf-tmux命令
-zinit ice wait"0b" lucid from="gh-r" as"program" atload"source <(fzf --zsh); bindkey '^R' fzf-history-widget; bindkey '^T' fzf-file-widget"
+zinit ice wait"0a" lucid from="gh-r" as"program" atload"source <(fzf --zsh); bindkey '^R' fzf-history-widget; bindkey '^T' fzf-file-widget"
 zinit light junegunn/fzf
 
-# Lazy-load fzf-git
-# https://github.com/junegunn/fzf-git.sh
-zinit ice wait"0c" lucid pick"fzf-git.sh"
-zinit light junegunn/fzf-git.sh
+if (( ${+commands[fzf]} )); then
+  # Lazy-load fzf-tab
+  # https://github.com/Aloxaf/fzf-tab
+  # NOTE: fzf-tab 对加载顺序有要求，需要将它放在 compinit 之后、zsh-autosuggestions 和 fast-syntax-highlighting 和 zsh-syntax-highlighting 之前加载，否则会导致 tab 快捷键无效
+  # NOTE: 如果有更强大的`amazon-q`，不需要开启此插件，但是`amazon-q`截止现在仅支持`terminal`,`hyper`,`iterm2`,`vscode`
+  # NOTE: WarpTerminal 不支持，且只在 `tmux` 模式下有效
+  zinit ice wait"0a" lucid
+  zinit light Aloxaf/fzf-tab
 
-# Lazy-load forgit
-# https://github.com/wfxr/forgit
-zinit ice wait"0b" lucid
-zinit load wfxr/forgit
-
-# Lazy-load mcfly
-# https://github.com/cantino/mcfly
-zinit ice wait"0b" lucid from"gh-r" as"program" atload'eval "$(mcfly init zsh)"; bindkey "^R" fzf-history-widget; bindkey "^Y" mcfly-history-widget'
-zinit light cantino/mcfly
+  # Lazy-load fzf-git
+  # https://github.com/junegunn/fzf-git.sh
+  zinit ice wait"0a" lucid pick"fzf-git.sh"
+  zinit light junegunn/fzf-git.sh
+  
+  # Lazy-load forgit
+  # https://github.com/wfxr/forgit
+  zinit ice wait"0a" lucid
+  zinit load wfxr/forgit
+fi
 
 ##########################################################
 ##### Load powerlevel10k theme
