@@ -23,7 +23,7 @@ if (( ! ${+commands[zinit]} )); then
         [[ ! -d "${XDG_DATA_HOME:-${HOME}/.local/share}/zinit" ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
         [[ -f ${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.zsh ]] && source ${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.zsh
         break
-      ;;  
+      ;;
       B | b)
         # Manual
         echo "Installing zinit via Manual..."
@@ -222,7 +222,7 @@ if (( ${+commands[fzf]} )); then
   # https://github.com/junegunn/fzf-git.sh
   zinit ice wait"0a" lucid pick"fzf-git.sh"
   zinit light junegunn/fzf-git.sh
-  
+
   # Lazy-load forgit
   # https://github.com/wfxr/forgit
   zinit ice wait"0a" lucid
