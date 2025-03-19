@@ -114,20 +114,49 @@ export ZSH="$HOME/.oh-my-zsh"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"source /Users/zhaohongliang/.zshrc
 
-source ~/.config/zsh/zinit/zinit.zsh
-source ~/.config/fzf/fzf.zsh
-source ~/.config/mcfly/mcfly.zsh
-source ~/.path.zsh
-source ~/.bash_profile
+##########################################################
+##### ZSH Basic Options
+##########################################################
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_all_dups   # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt inc_append_history     # add commands to HISTFILE in order of execution
+setopt share_history          # share command history data
+setopt always_to_end          # cursor moved to the end in full completion
+setopt hash_list_all          # hash everything before completion
+setopt completealiases        # complete alisases
+setopt always_to_end          # when completing from the middle of a word, move the cursor to the end of the word
+setopt complete_in_word       # allow completion from within a word/phrase
+setopt nocorrect              # spelling correction for commands
+setopt list_ambiguous         # complete as much of a completion until it gets ambiguous.
+setopt nolisttypes
+setopt listpacked
+setopt automenu
 
-source <(fzf --zsh)
-eval "$(jenv init -)"
-eval "$(mcfly init zsh)"
-eval "$(zoxide init zsh --cmd j)"
-eval "$(direnv hook zsh)"
+autoload -Uz compinit
+compinit
 
+# zinit
+[[ -f ~/.config/zsh/zinit/zinit.zsh ]] && source ~/.config/zsh/zinit/zinit.zsh
+# fzf
+[[ -f ~/.config/fzf/fzf.zsh ]] && source ~/.config/fzf/fzf.zsh
+# mcfly
+[[ -f ~/.config/mcfly/mcfly.zsh ]] && source ~/.config/mcfly/mcfly.zsh
 # broot
 [[ -f /usr/local/bin/broot  ]] && source /Users/zhaohongliang/.config/broot/launcher/bash/br
+# bindkey
+[[ -f ~/.config/zsh/key-bind/key-bindings.zsh ]] && source ~/.config/zsh/key-bind/key-bindings.zsh
+# bash_profile
+[[ -f ~/.bash_profile ]] && source ~/.bash_profile
+# path
+[[ -f ~/.path.zsh ]] && source ~/.path.zsh
+
+# jenv
+eval "$(jenv init -)"
+# direnv
+eval "$(direnv hook zsh)"
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
