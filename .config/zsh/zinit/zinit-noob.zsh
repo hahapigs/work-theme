@@ -6,22 +6,62 @@
 ##########################################################
 ##### Install `zinit` and load it
 ##########################################################
-## Automatic
-# [[ ! -d "${HOME}/.local/share/zinit" ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
-# NOTE: After installing and reloading the shell, compile Zinit via: `zinit self-update`
 
-## Manual
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-[[ ! -d $ZINIT_HOME ]] &&
-    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f" &&
-    command mkdir -p "$(dirname $ZINIT_HOME)"
-[[ ! -d $ZINIT_HOME/.git ]] &&
-    command git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%F" || \
-        print -P "%F{160}▓▒░ The clone has failed.%F"
-source "${ZINIT_HOME}/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+if (( ! ${+commands[zinit]} )); then
+  echo "zinit is not installed. Please choose an installation method:"
+  echo "A. Install via Automatic"
+  echo "B. Install via Manual"
+  echo "C. Install via Homebrew"
+  echo "Q. Cancel"
+  read -r "choice?Enter your choice (A/B/C/Q): "
+
+  while true; do
+    case $choice in
+      A | a)
+        # Automatic
+        echo "Installing zinit via Automatic..."
+        [[ ! -d "${XDG_DATA_HOME:-${HOME}/.local/share}/zinit" ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+        [[ -f ${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.zsh ]] && source ${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.zsh
+        break
+      ;;  
+      B | b)
+        # Manual
+        echo "Installing zinit via Manual..."
+        ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+        [[ ! -d $ZINIT_HOME ]] &&
+            print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f" &&
+            command mkdir -p "$(dirname $ZINIT_HOME)"
+        [[ ! -d $ZINIT_HOME/.git ]] &&
+            command git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME" && \
+                print -P "%F{33}▓▒░ %F{34}Installation successful.%F" || \
+                print -P "%F{160}▓▒░ The clone has failed.%F"
+        source "${ZINIT_HOME}/zinit.zsh"
+        autoload -Uz _zinit
+        (( ${+_comps} )) && _comps[zinit]=_zinit
+        break
+      ;;
+      C | c)
+        # Homebrew
+        echo "Installing zinit via Homebre..."
+        [[ ! -d $(brew --prefix zinit) ]] && brew install zinit
+        source $(brew --prefix zinit)/zinit.zsh
+        break
+      ;;
+      Q | q)
+        # Cancel
+        echo "Installation has been canceled. Exiting..."
+        exit 1
+      ;;
+      *)
+        echo "Invalid input. Please enter again"
+      ;;
+    esac
+  done
+else
+  [[ -f ${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.zsh ]] && source ${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.zsh
+  [[ -f $(brew --prefix zinit)/zinit.zsh ]] && source $(brew --prefix zinit)/zinit.zsh
+fi
+
 
 ## Basic
 # zinit snippet <URL>                       # Raw Syntax with URL
@@ -97,20 +137,20 @@ zinit light Aloxaf/fzf-tab
 # Lazy-load zsh-autosuggestions with priority loading
 # Changed wait to "0a" to load before syntax highlighting
 # NOTE: 没有 atload='!_zsh_autosuggest_start' 会影响首个 prompt 失去提示功能
-zinit ice wait"0a" lucid atload='!_zsh_autosuggest_start'
+zinit ice wait"0b" lucid atload='!_zsh_autosuggest_start'
 zinit light zsh-users/zsh-autosuggestions
 
 # Lazy-load syntax highlighting AFTER autosuggestions
 # Changed wait to "0b" to ensure proper order
-zinit ice wait"0c" lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
+zinit ice wait"0d" lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
 zinit light zdharma-continuum/fast-syntax-highlighting       # zsh-users/zsh-syntax-highlighting 更新滞后
 
 # Lazy-load zsh-completions
-zinit ice wait"0a" lucid blockf
+zinit ice wait"0b" lucid blockf
 zinit light zsh-users/zsh-completions
 
 # Lazy-load zsh-history-substring-search
-zinit ice wait"0a" lucid atload'bindkey "$terminfo[kcuu1]" history-substring-search-up; bindkey "$terminfo[kcud1]" history-substring-search-down'
+zinit ice wait"0b" lucid atload'bindkey "$terminfo[kcuu1]" history-substring-search-up; bindkey "$terminfo[kcud1]" history-substring-search-down'
 zinit light zsh-users/zsh-history-substring-search
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down

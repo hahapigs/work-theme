@@ -114,11 +114,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"source /Users/zhaohongliang/.zshrc
 
-# ZSH configuration directory
-export ZSH_CONF_HOME="$HOME/.config/zsh"
-source $ZSH_CONF_HOME/zinit/zinit.zsh
-source $ZSH_CONF_HOME/fzf/fzf.zsh
-source $ZSH_CONF_HOME/mcfly/mcfly.zsh
+source ~/.config/zsh/zinit/zinit.zsh
+source ~/.config/fzf/fzf.zsh
+source ~/.config/mcfly/mcfly.zsh
 source ~/.path.zsh
 source ~/.bash_profile
 
@@ -127,18 +125,6 @@ eval "$(jenv init -)"
 eval "$(mcfly init zsh)"
 eval "$(zoxide init zsh --cmd j)"
 eval "$(direnv hook zsh)"
-
-# fzf
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# autojump
-# brew install autojump
-# [ -f /usr/local/etc/profile.d/autojump.sh  ] && . /usr/local/etc/profile.d/autojump.sh
-# zinit light wting/autojump
-# [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
-
-# z
-# [ -f /usr/local/etc/profile.d/z.sh  ] && . /usr/local/etc/profile.d/z.sh
 
 # broot
 [[ -f /usr/local/bin/broot  ]] && source /Users/zhaohongliang/.config/broot/launcher/bash/br
