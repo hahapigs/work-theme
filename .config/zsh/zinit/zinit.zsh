@@ -118,13 +118,13 @@ zinit light lsd-rs/lsd
 
 # Lazy-load autojump
 # https://github.com/wting/autojump
-# NOTE: 此方式会污染 ${fpath}
-zinit ice wait"0a" lucid atclone"python3 install.py" atpull"%atclone" pick"bin/autojump.zsh"
-zinit light wting/autojump
+# NOTE: autojump 污染 ${fpath}
+# zinit ice wait"0a" lucid  atclone"python3 install.py" atpull"%atclone" pick"bin/autojump.zsh"
+# zinit light wting/autojump
 
 # Lazy-load zoxide
 # https://github.com/ajeetdsouza/zoxide
-zinit ice wait"0a" lucid from"gh-r" as"program" atload='eval "$(zoxide init zsh)"'
+zinit ice wait"0a" lucid from"gh-r" as"program" atload='eval "$(zoxide init zsh --cmd j)"'
 zinit light ajeetdsouza/zoxide
 
 # Lazy-load eza
