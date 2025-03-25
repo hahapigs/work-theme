@@ -1,11 +1,22 @@
+## git
 .git
-.DS_Store
-*.class
-*.pyc
-node_modules
 
+## Java
+*.class
+target/
+
+## Python
+*.py[co]
+__pycache__/
+
+## Node
+node_modules/
+
+## System
+.DS_Store
 Pictures/
 Music/
 Movies/
 Downloads/
 Public/
+
