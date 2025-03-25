@@ -47,12 +47,7 @@ class fzf_select(Command):
             fd = 'fd'
 
         if fd is not None:
-            hidden = ('--hidden' if self.fm.settings.show_hidden else '')
-            exclude = "--no-ignore-vcs --exclude '.git' --exclude '*.py[co]' --exclude '__pycache__'"
-            only_directories = ('--type directory' if self.quantifier else '')
-            fzf_default_command = '{} --follow {} {} {} --color=always'.format(
-                fd, hidden, exclude, only_directories
-            )
+            fzf_default_command = os.environ.get('FZF_DEFAULT_COMMAND')
         else:
             hidden = ('-false' if self.fm.settings.show_hidden else r"-path '*/\.*' -prune")
             exclude = r"\( -name '\.git' -o -name '*.py[co]' -o -fstype 'dev' -o -fstype 'proc' \) -prune"
@@ -62,16 +57,12 @@ class fzf_select(Command):
             )
 
         env = os.environ.copy()
-        env['FZF_DEFAULT_COMMAND'] = fzf_default_command
-        env['FZF_DEFAULT_OPTS'] = '--height=80% --layout=reverse --ansi --preview="{}"'.format('''
-            (
-                batcat --color=always {} ||
-                bat --style=numbers,changes --color=always {} ||
-                cat {} ||
-                eza --tree --level=3 -al --icons=always --color=always  --git-ignore --ignore-glob='*.py[co]' --ignore-glob='__pycache__' ||
-                tree -ahpCL 3 -I '.git' -I '*.py[co]' -I '__pycache__' {}
-            ) 2>/dev/null | head -n 100
-        ''')
+
+        old_opts = os.environ.get('FZF_DEFAULT_OPTS')
+        add_opts = '--bind "ctrl-e:execute(echo {+} | xargs -o vim)" --bind "ctrl-v:execute(code {+})" --bind "enter:execute(echo {+} | xargs -o vim)"'
+        fzf_default_opts = f"{old_opts} {add_opts}"
+
+        env['FZF_DEFAULT_OPTS'] = fzf_default_opts
 
         fzf = self.fm.execute_command('fzf --no-multi', env=env,
                                       universal_newlines=True, stdout=subprocess.PIPE)
