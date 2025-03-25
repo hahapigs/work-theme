@@ -8,7 +8,7 @@ export FZF_DEFAULT_OPTS_FILE="$FZF_HOME/.fzfrc"
 # Default options
 export FZF_DEFAULT_OPTS="--preview '$FZF_HOME/fzf_preview.sh {}'"   # permission denied，execute chmod +x fzf_preview.sh
 # Default command to use when input is tty
-export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_COMMAND="fd --hidden $($FZF_HOME/fzf_ignore.sh fd) --color always"
 
 ########################
 ## CTRL + R
@@ -28,7 +28,7 @@ export FZF_CTRL_R_OPTS="
 ## CTRL + T
 ########################
 # For ctrl-t file search
-export FZF_CTRL_T_COMMAND="fd --type f --hidden $($FZF_HOME/fzf_ignore.sh fd)";
+export FZF_CTRL_T_COMMAND="fd --type f --hidden $($FZF_HOME/fzf_ignore.sh fd) --color always";
 # Custom preview for ctrl-t
 export FZF_CTRL_T_OPTS="
 --border-label ' 🔍 Files '
@@ -41,15 +41,15 @@ export FZF_CTRL_T_OPTS="
 --bind 'ctrl-v:execute(code {+})'                               # Open in VS Code
 --bind 'ctrl-a:select-all'                                      # Select all items
 --bind 'enter:execute(echo {+} | xargs -o vim)'                 # Default open in vim
---bind '?:reload(fd --type f)'
---bind '>:reload(fd --type f --hidden eval \$FZF_DEFAULT_COMMAND)'
+--bind '?:reload(fd --type f \$(\$$FZF_HOME/fzf_ignore.sh fd) --color always)'
+--bind '>:reload(eval \$FZF_CTRL_T_COMMAND)'
 "
 
 ########################
 ## ALT + C / ESC + C
 ########################
 # For directory search with alt-c
-export FZF_ALT_C_COMMAND="fd --type d --hidden --follow $($FZF_HOME/fzf_ignore.sh fd)";
+export FZF_ALT_C_COMMAND="fd --type d --hidden --follow $($FZF_HOME/fzf_ignore.sh fd) --color always";
 export FZF_ALT_C_OPTS="
 --border-label ' 📁 Directory '
 --header-label ' Absolute Path '
@@ -87,13 +87,13 @@ _fzf_comprun() {
 # Use fd (https://github.com/sharkdp/fd) for listing path candidates
 # e.g. vim ~/**<tab> runs with the prefix () as the first argument fzf_compgen_path() ~/
 _fzf_compgen_path() {
-  fd --hidden --follow $($FZF_HOME/fzf_ignore.sh fd) . "$1"
+  fd --hidden --follow $($FZF_HOME/fzf_ignore.sh fd) --color always . "$1"
 }
 
 # Use fd to generate the list for directory completion
 # e.g. cd foo**<tab> runs with the prefix () as the first argument fzf_compgen_dir() foo
 _fzf_compgen_dir() {
-  fd --type d --hidden --follow $($FZF_HOME/fzf_ignore.sh fd) . "$1"
+  fd --type d --hidden --follow $($FZF_HOME/fzf_ignore.sh fd) --color always . "$1"
 }
 
 ##########################################################
