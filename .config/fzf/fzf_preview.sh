@@ -10,13 +10,13 @@ if [[ -f "$target" ]]; then
 # 如果是目录
 elif [[ -d "$target" ]]; then
   # 使用 eza 显示目录树（带图标）
-  eza --tree --level 2 --icons --color always "$target" 2>/dev/null ||
+  eza -al --tree --level 2 --icons always --color always --git --git-ignore --ignore-glob '*.py[co]' --ignore-glob '__pycache__' "$target" 2>/dev/null ||
   # 如果 eza 不可用，使用 exa 显示目录树
-  exa --tree --level 2 --icons --color always "$target" 2>/dev/null ||
+  exa -al --tree --level 2 --icons always --color always --git --git-ignore --ignore-glob '*.py[co]' --ignore-glob '__pycache__' "$target" 2>/dev/null ||
   # 如果 exa 不可用，使用 lsd 显示目录树
-  lsd --tree --depth 2 --icon always --color always "$target" 2>/dev/null ||
+  lsd -al --tree --depth 2 --icon always --color always --git --git-ignore --ignore-glob '*.py[co]' --ignore-glob '__pycache__' "$target" 2>/dev/null ||
   # 如果 lsd 不可用，使用 tree 显示目录树
-  tree -C "$target" 2>/dev/null | less
+  tree -ahpCL 3 -I '.git' -I '*.py[co]' -I '__pycache__' -I '*.class' -I 'target' "$target" 2>/dev/null | less
 # 如果不是文件也不是目录
 else
   # 显示前 200 个字符
