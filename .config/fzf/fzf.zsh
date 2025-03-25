@@ -87,13 +87,15 @@ _fzf_comprun() {
 # Use fd (https://github.com/sharkdp/fd) for listing path candidates
 # e.g. vim ~/**<tab> runs with the prefix () as the first argument fzf_compgen_path() ~/
 _fzf_compgen_path() {
-  fd --hidden --follow $($FZF_HOME/fzf_ignore.sh fd) --color always . "$1"
+  # fd --hidden --follow $(eval echo $($FZF_HOME/fzf_ignore.sh fd)) --color always . "$1"
+  echo $($FZF_HOME/fzf_ignore.sh fd) | xargs fd --hidden --follow --color always . "$1"
 }
 
 # Use fd to generate the list for directory completion
 # e.g. cd foo**<tab> runs with the prefix () as the first argument fzf_compgen_dir() foo
 _fzf_compgen_dir() {
-  fd --type d --hidden --follow $($FZF_HOME/fzf_ignore.sh fd) --color always . "$1"
+  # fd --type d --hidden --follow $(eval echo $($FZF_HOME/fzf_ignore.sh fd)) --color always . "$1"
+  echo $($FZF_HOME/fzf_ignore.sh fd) | xargs fd --type d --hidden --follow --color always . "$1"
 }
 
 ##########################################################
