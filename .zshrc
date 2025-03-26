@@ -139,7 +139,7 @@ autoload -Uz compinit
 compinit
 
 # zinit
-[[ -f ~/.config/zsh/zinit/zinit.zsh ]] && source ~/.config/zsh/zinit/zinit.zsh
+[[ -f ~/.config/zsh/zinit.zsh ]] && source ~/.config/zsh/zinit.zsh
 # fzf
 [[ -f ~/.config/fzf/fzf.zsh ]] && source ~/.config/fzf/fzf.zsh
 # mcfly
@@ -147,11 +147,11 @@ compinit
 # broot
 [[ -f /usr/local/bin/broot  ]] && source /Users/zhaohongliang/.config/broot/launcher/bash/br
 # bindkey
-[[ -f ~/.config/zsh/key-bind/key-bindings.zsh ]] && source ~/.config/zsh/key-bind/key-bindings.zsh
+[[ -f ~/.config/zsh/key-bindings.zsh ]] && source ~/.config/zsh/key-bindings.zsh
+# path
+[[ -f ~/.config/zsh/path.zsh ]] && source ~/.config/zsh/path.zsh
 # bash_profile
 [[ -f ~/.bash_profile ]] && source ~/.bash_profile
-# path
-[[ -f ~/.path.zsh ]] && source ~/.path.zsh
 
 # jenv
 eval "$(jenv init -)"
