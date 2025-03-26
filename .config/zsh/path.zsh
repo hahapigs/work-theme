@@ -31,7 +31,7 @@ prepend "$brewprefix/sbin"
 prepend "$HOME/.jenv/bin"
 
 # Custom dotfiles binaries
-prepend "$HOME/.config/zsh/bin"
+# prepend "$HOME/.config/zsh/bin"
 
 # Prevent it from being used accidentally elsewhere in the script or by other scripts
 unset brewprefix
