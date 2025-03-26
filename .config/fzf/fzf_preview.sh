@@ -11,8 +11,6 @@ if [[ -f "$target" ]]; then
 elif [[ -d "$target" ]]; then
   # 使用 eza 显示目录树（带图标）
   eza -al --tree --level 2 --icons always --color always --git --git-ignore --ignore-glob '*.py[co]' --ignore-glob '__pycache__' "$target" 2>/dev/null ||
-  # 如果 eza 不可用，使用 exa 显示目录树
-  exa -al --tree --level 2 --icons always --color always --git --git-ignore --ignore-glob '*.py[co]' --ignore-glob '__pycache__' "$target" 2>/dev/null ||
   # 如果 exa 不可用，使用 lsd 显示目录树
   lsd -al --tree --depth 2 --icon always --color always --git --git-ignore --ignore-glob '*.py[co]' --ignore-glob '__pycache__' "$target" 2>/dev/null ||
   # 如果 lsd 不可用，使用 tree 显示目录树
