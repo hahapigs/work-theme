@@ -3,4 +3,4 @@
   email = 15711385916@163.com
 
 [core]
-  hooksPath = ~/.config/git/hooks
+  hooksPath = ~/.config/git/hook
