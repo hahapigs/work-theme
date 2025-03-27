@@ -1,18 +1,18 @@
-## git
+# git
 .git
 
-## Java
+# Java
 *.class
 target/
 
-## Python
+# Python
 *.py[co]
 __pycache__/
 
-## Node
+# Node
 node_modules/
 
-## System
+# System
 .DS_Store
 Pictures/
 Music/
