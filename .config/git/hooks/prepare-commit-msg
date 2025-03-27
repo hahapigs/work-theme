@@ -22,7 +22,7 @@ declare -A EMOJI_MAP=(
 TYPE=$(echo "$COMMIT_MSG" | grep -oE '^(feat|fix|docs|style|refactor|test|perf|chore)\b')
 
 # 调试输出（提交前可以查看）
-echo "检测到提交类型: $TYPE" >&2
+# echo "检测到提交类型: $TYPE" >&2
 
 # 如果匹配到类型且未手动添加 Emoji，则自动插入
 if [[ -n "$TYPE" ]] && ! grep -qE '^[🎨🐛✨📝🔧✅🚀🔨]' "$COMMIT_MSG_FILE"; then
