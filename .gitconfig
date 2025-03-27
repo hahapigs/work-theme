@@ -1,10 +1,14 @@
-# work
-[includeIf "gitdir:~/dev/work/"]
-  path = ~/.config/git/config-work
+[user]
+	name = zhaohongliang
+	email = 15711385916@163.com
 
 # self
 [includeIf "gitdir:~/dev/self/"]
   path = ~/.config/git/config-self
+
+# work
+[includeIf "gitdir:~/dev/work/"]
+  path = ~/.config/git/config-work
 
 [safe]
   directory = /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
@@ -44,4 +48,3 @@
 
 [pull]
   rebase = false
-
