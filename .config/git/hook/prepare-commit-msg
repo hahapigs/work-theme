@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# 获取提交信息文件路径
+COMMIT_MSG_FILE=$1
+
+# 读取第一行非注释内容
+COMMIT_MSG=$(grep -v '^#' "$COMMIT_MSG_FILE" | head -n 1)
+
+# 定义 Emoji 映射，为了支持 declare -A ，请把 bash 升级 >= 4.0，并 head -1 .git/hooks/prepare-commit-msg 检查
+declare -A EMOJI_MAP=(
+  ["feat"]="✨"
+  ["fix"]="🐛"
+  ["docs"]="📝"
+  ["style"]="🎨"
+  ["refactor"]="🔧"
+  ["test"]="✅"
+  ["perf"]="🚀"
+  ["chore"]="🔨"
+)
+
+# 提取提交类型（如 "feat: xxx" -> "feat"）
+TYPE=$(echo "$COMMIT_MSG" | grep -oE '^(feat|fix|docs|style|refactor|test|perf|chore)\b')
+
+# 调试输出（提交前可以查看）
+echo "检测到提交类型: $TYPE" >&2
+
+# 如果匹配到类型且未手动添加 Emoji，则自动插入
+if [[ -n "$TYPE" ]] && ! grep -qE '^[🎨🐛✨📝🔧✅🚀🔨]' "$COMMIT_MSG_FILE"; then
+  EMOJI=${EMOJI_MAP[$TYPE]}
+  # 在首行插入 Emoji
+  echo "${EMOJI} ${COMMIT_MSG}" > "$COMMIT_MSG_FILE"
+fi
+
+exit 0

@@ -1,0 +1,105 @@
+# OS files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor Files
+*.swp
+*.swo
+*.swn
+*.swm
+*.swl
+*.swk
+*.bak
+*.backup
+*.orig
+*.ref
+*~
+*.sublime-workspace
+.idea
+*.iws
+*.iml
+*.ipr
+.vscode
+
+# Logs
+*.log
+*.sqlite
+log.txt
+
+# Generated files
+build/
+target/
+dist/
+
+# Sensitive files
+*.env
+*.key
+*.pem
+*.credentials
+*.password
+*.secret
+
+# Scratch files
+.scratch/
+
+# PhpStorm HTTP Requests
+.http/
+
+# Temp files
+tmp/
+
+# Web files
+node_modules/
+npm-debug.log*
+yarn-error.log*
+package-lock.json
+vendor/
+
+# Compressed files
+*.7z
+*.gz
+*.iso
+*.jar
+*.war
+*.nar
+*.ear
+*.rar
+*.zip
+*.tar
+*.tar.gz
+*.dmg
+*.msi
+
+# Compiled Python files
+__pycache__/
+*.py[cod]
+
+# Python
+*.pyc
+
+# Rust
+**/*.rs.bk
+**/*.rl.bk
+
+# Compiled class files
+*.class
+
+# Java
+target/
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+replay_pid*
+
+# Jenv
+.java-version
