@@ -1,6 +1,4 @@
-#####################
-### Zsh
-#####################
+# Zsh
 # Zsh compiled script + zrecompile backup
 *.zwc
 *.zwc.old
@@ -36,7 +34,6 @@ zsdoc/data
 /tests/_output/*
 !/tests/_output/.gitkeep
 
-#####################
-### Python
-#####################
+# Python
+*.py[cod]
 __pycache__/
