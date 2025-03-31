@@ -1,5 +1,5 @@
 [user]
-	name = zhaohongliang
+	name = hahapigs
 	email = 15711385916@163.com
 
 # self
@@ -9,6 +9,12 @@
 # work
 [includeIf "gitdir:~/dev/work/"]
   path = ~/.config/git/config-work
+
+# e.g.
+# export GIT_HOOKS_PATH="$(pwd)/.git/hooks"
+# echo 'export GIT_HOOKS_PATH="$GIT_HOOKS_PATH"' >> .envrc && direnv allow 
+[includeIf "env:GIT_HOOKS_PATH"]
+  path = ~/.config/git/direnv_hooks.inc
 
 [safe]
   directory = /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
