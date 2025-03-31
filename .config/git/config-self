@@ -1,6 +1,9 @@
 [user]
-  name = hahapigs
-  email = 15711385916@163.com
+	name = hahapigs
+	email = 15711385916@163.com
 
 [core]
-  hooksPath = ~/.config/git/hooks
+	hooksPath = ~/.config/git/hooks
+
+[commit]
+	template = ~/.config/git/stCommitMsg

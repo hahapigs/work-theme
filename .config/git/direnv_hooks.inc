@@ -1,2 +1,2 @@
 [core]
-  hooksPath = ${GIT_HOOKS_PATH}
+    hooksPath = ${GIT_HOOKS_PATH}
