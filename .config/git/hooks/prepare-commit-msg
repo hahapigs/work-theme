@@ -10,22 +10,41 @@ COMMIT_MSG=$(grep -v '^#' "$COMMIT_MSG_FILE" | head -n 1)
 declare -A EMOJI_MAP=(
   ["feat"]="✨"
   ["fix"]="🐛"
-  ["docs"]="📝"
-  ["style"]="🎨"
-  ["refactor"]="🔧"
-  ["test"]="✅"
+  ["hotfix"]="🔥"
+  ["docs"]="📚"
+  ["style"]="💄"
+  ["refactor"]="♻️"
   ["perf"]="🚀"
-  ["chore"]="🔨"
+  ["optimize"]="🚗"
+  ["ux"]="🎨"
+  ["chore"]="🔧"
+  ["test"]="🧪"
+  ["deps"]="📦"
+  ["security"]="🔰"
+  ["remove"]="🗑️"
+  ["comments"]="💬"
+  ["error"]="⛔️"
+  ["config"]="⚙️"
+  ["files"]="📁"
+  ["merge"]="🔀"
+  ["revert"]="⏪️"
+  ["init"]="⭐️"
+  ["i18n"]="🌍"
+  ["log"]="📝"
+  ["cli"]="🔌"
+  ["release"]="📣"
+  ["data"]="🛢️"
+  ["build"]="🛠️"
 )
 
 # 提取提交类型（如 "feat: xxx" -> "feat"）
-TYPE=$(echo "$COMMIT_MSG" | grep -oE '^(feat|fix|docs|style|refactor|test|perf|chore)\b')
+TYPE=$(echo "$COMMIT_MSG" | grep -oE '^(feat|fix|docs|style|refactor|perf|optimize|ux|chore|test|deps|security|remove|comments|error|config|files|merge|revert|init|i18n|log|ci|release|data|build)\b')
 
 # 调试输出（提交前可以查看）
 # echo "检测到提交类型: $TYPE" >&2
 
 # 如果匹配到类型且未手动添加 Emoji，则自动插入
-if [[ -n "$TYPE" ]] && ! grep -qE '^[🎨🐛✨📝🔧✅🚀🔨]' "$COMMIT_MSG_FILE"; then
+if [[ -n "$TYPE" ]] && ! grep -qE '^[✨🐛🔥📚💄♻️🚀🚗🎨🔧🧪📦🔰🗑️💬⛔️⚙️📁🔀⏪️⭐️🌍📝🔌📣🛢️🛠️]' "$COMMIT_MSG_FILE"; then
   EMOJI=${EMOJI_MAP[$TYPE]}
   # 在首行插入 Emoji
   echo "${EMOJI} ${COMMIT_MSG}" > "$COMMIT_MSG_FILE"
