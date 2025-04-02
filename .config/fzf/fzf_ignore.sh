@@ -14,10 +14,10 @@ _read_fzf_ignore() {
   fi
 
   if [[ "$tool" == "fd" ]]; then
-    # 读取 .fdignore 文件，过滤掉注释和空行，并连接为一行
+    # 读取 .fzfignore 文件，过滤掉注释和空行，并连接为一行
     echo $(grep -v '^\s*#' "$FZF_IGNORE_FILE" | grep -v '^\s*$' | sed "s|^|--exclude '|; s|$|'|" | tr '\n' ' ')
   elif [[ "$tool" == "find" ]]; then
-    # 读取 .fdignore 文件，过滤掉注释和空行，并连接为一行
+    # 读取 .fzfignore 文件，过滤掉注释和空行，并连接为一行
     echo $(grep -v '^\s*#' "$FZF_IGNORE_FILE" | grep -v '^\s*$' | sed "s|^|-not -path '|; s|$|'|" | tr '\n' ' ')
   else
     echo "Error: Unsupported tool '$tool'. Use 'fd' or 'find'." >&2

@@ -2,7 +2,7 @@
 ##### junegunn/fzf
 ##########################################################
 # 主目录
-export FZF_HOME="${HOME}/.config/fzf"
+export FZF_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}/fzf"
 # Default options in a file
 export FZF_DEFAULT_OPTS_FILE="${FZF_HOME}/.fzfrc"
 # Default options
@@ -64,7 +64,7 @@ export FZF_ALT_C_OPTS="
 # Use ~~ as the trigger sequence instead of the default **
 export FZF_COMPLETION_TRIGGER='**'
 # Options to fzf command
-export FZF_COMPLETION_OPTS='--border --info=inline'
+export FZF_COMPLETION_OPTS='--border --info inline-right:"< "'
 # Options for path completion (e.g. vim **<TAB>)  file,dir,follow,hidden
 export FZF_COMPLETION_PATH_OPTS='--walker file,dir,follow,hidden'
 # Options for directory completion (e.g. cd **<TAB>) dir,follow
@@ -77,10 +77,10 @@ _fzf_comprun() {
   shift
 
   case "$command" in
-    cd)           fzf --preview 'tree -C {} | head -200'   "$@" ;;
-    export|unset) fzf --preview "eval 'echo \$'{}"         "$@" ;;
-    ssh)          fzf --preview 'dig {}'                   "$@" ;;
-    *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
+    cd)           fzf --preview '${FZF_HOME}/fzf_preview.sh {}'     "$@" ;;
+    export|unset) fzf --preview "eval 'echo \$'{}"                  "$@" ;;
+    ssh)          fzf --preview 'dig {}'                            "$@" ;;
+    *)            fzf --preview '${FZF_HOME}/fzf_preview.sh {}'     "$@" ;;
   esac
 }
 
@@ -149,16 +149,16 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 # amazon-q界面更友好，fzf更贴合terminal，前者支持模糊检索，后者自动补全效率更高
 jr() {
   local dir
-   dir=$(autojump -s | sort -nr | awk '{print $2}' | fzf --height 40% --reverse --preview 'exa -l --git --icons {}') && cd "$dir"
+   dir=$(autojump -s | sort -nr | awk '{print $2}' | fzf --height 40%) && cd "$dir"
 }
 
 ########################
-## ps
+## zoxide
 ########################
 # zoxide search --interactive
 zr() {
   local dir
-  dir=$(zoxide query -l | fzf --height 40% --reverse --preview 'exa -l --git --icons {}') && cd "$dir"
+  dir=$(zoxide query -l | fzf --height 40%) && cd "$dir"
 }
 
 ########################
