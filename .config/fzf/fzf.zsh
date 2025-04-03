@@ -105,9 +105,8 @@ _fzf_compgen_dir() {
 # For forgit global config
 export FORGIT_FZF_DEFAULT_OPTS="
 --style full
---border-label ' forgit '
+--border-label ' 🛠️ forgit '
 --header-label ' branch '
---prompt '🛠️  '
 --marker='✓ '
 --bind 'focus:+transform-header:git branch --show-current || $(echo "No git")'
 "
@@ -125,10 +124,10 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':completion:*' menu no
 # preview directory's content with eza when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview '${FZF_HOME}/fzf_preview.sh $realpath'
 # custom fzf flags
 # NOTE: fzf-tab does not follow FZF_DEFAULT_OPTS by default
-zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept --preview='(fortune | boxes -a c -d cowsay)'
+zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept --preview-window right:50%
 # To make fzf-tab follow FZF_DEFAULT_OPTS.
 # NOTE: This may lead to unexpected behavior since some flags break this plugin. See Aloxaf/fzf-tab#455.
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
@@ -142,23 +141,18 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 ##########################################################
 
 ########################
-## autojump
+## autojump / zoxide
 ########################
-# ❗️ 如果安装了amazon-q，同时保留两者，请务必保证和 j 不同名，否则fzf preview在前两者之后弹出，影响体验。
+# NOTE: 如果安装了amazon-q，同时保留两者，请务必保证和 j 不同名，否则fzf preview在前两者之后弹出，影响体验。
 # 确保此函数在source autojump.sh 之后加载，否则fzf preview不会生效
 # amazon-q界面更友好，fzf更贴合terminal，前者支持模糊检索，后者自动补全效率更高
 jr() {
   local dir
-   dir=$(autojump -s | sort -nr | awk '{print $2}' | fzf --height 40%) && cd "$dir"
-}
-
-########################
-## zoxide
-########################
-# zoxide search --interactive
-zr() {
-  local dir
-  dir=$(zoxide query -l | fzf --height 40%) && cd "$dir"
+  if (( $+commands[zoxide] )); then
+    dir=$(zoxide query -l | fzf --height 40%) && cd "$dir"
+  elif (( $+commands[autojump] )); then
+    dir=$(autojump -s | sort -nr | awk '{print $2}' | fzf --height 40%) && cd "$dir"
+  fi
 }
 
 ########################
