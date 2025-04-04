@@ -14,7 +14,10 @@
 # echo 'export GIT_HOOKS_PATH="$(pwd)/.git/hooks"' >> .envrc && direnv allow
 [includeIf "env:GIT_HOOKS_PATH"]
 	path = ~/.config/git/direnv_hooks.inc
-[includeIf "env:GIT_HOOKS_PATH"]
+
+# theme
+[include]
+	path = ~/.config/git/themes/catppuccin.gitconfig
 
 [safe]
 	directory = /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
@@ -39,7 +42,19 @@
 
 [core]
 	editor = vim
-	excludesfile = ~/.config/git/.ignore
+    pager = delta -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
+    excludesfile = ~/.config/git/.ignore
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+	features = catppuccin-macchiato
+    navigate = true
+    line-numbers = true
+	side-by-side = false
+	true-color = always
+	hyperlinks = true
 
 [merge]
 	tool = vimdiff
