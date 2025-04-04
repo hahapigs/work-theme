@@ -15,7 +15,7 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [[ ! -d $ZINIT_HOME ]] &&
     print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f" &&
     mkdir -p "$(dirname $ZINIT_HOME)"
-[[ ! -d $ZINIT_HOME/.git ]] &&
+[[ ! -d ${ZINIT_HOME}/.git ]] &&
     (git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME" &&
         print -P "%F{33}▓▒░ %F{34}Installation successful.%F" ||
         print -P "%F{160}▓▒░ The clone has failed.%F")
