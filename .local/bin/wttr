@@ -24,7 +24,7 @@ URLv3="https://v3.wttr.in/"
 
 About()
 {
-echo -e ="
+echo -e "
 About the
 
 ██╗    ██╗████████╗████████╗██████╗    ██╗███╗   ██╗
