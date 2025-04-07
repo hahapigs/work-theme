@@ -1,0 +1,86 @@
+#!/bin/bash
+#
+# Copy my SSH public key to the clipboard.
+#
+# - Copy the key:
+#
+# `copyssh`
+#
+# ---
+# Author: hahapigs
+# License: MIT
+
+version="0.01_2025-04-07"
+
+GITHUB_REPO_URL="https://github.com/hahapigs/work-theme/.local/bin/copyssh"
+
+About()
+{
+echo -e "
+About the
+
+ ██████╗ ██████╗ ██████╗ ██╗   ██╗███████╗███████╗██╗  ██╗
+██╔════╝██╔═══██╗██╔══██╗╚██╗ ██╔╝██╔════╝██╔════╝██║  ██║
+██║     ██║   ██║██████╔╝ ╚████╔╝ ███████╗███████╗███████║
+██║     ██║   ██║██╔═══╝   ╚██╔╝  ╚════██║╚════██║██╔══██║
+╚██████╗╚██████╔╝██║        ██║██╗███████║███████║██║  ██║
+ ╚═════╝ ╚═════╝ ╚═╝        ╚═╝╚═╝╚══════╝╚══════╝╚═╝  ╚═╝
+                                        script by hahapigs
+This is a simple bash script to copy the SSH public key with the help of SSH.
+
+Source is available on Github: $GITHUB_REPO_URL
+
+"
+}
+
+Help()
+{
+echo -e "
+Write 'copyssh {public key}' to copy content.
+
+Examples:
+  copyssh
+  copyssh hx-github
+
+Parameters:
+  -a show some information about this script
+  -h for some help (this page)
+  -n assign a key for copying
+"
+}
+
+file="${HOME}/.ssh/chuanghwa_rsa_github.pub"
+
+if [ "$#" == "0" ]; then 
+  if [ ! -f "$file" ]; then
+    echo -e "The specified file does not exist."
+  else
+    pbcopy < "$file" | printf "=> Public SSH key copied to clipboard.\n"
+  fi
+elif [ "$#" -gt "2" ]; then
+  echo -e "too many parameters. \nNeed help? try 'copyssh -h'"
+else
+  case $1 in
+  -a | --about)
+    About
+  ;;
+  -h | --help)
+    Help
+  ;;
+  -n | --name)
+    if [ "$#" == "2" ]; then
+      file="$2"
+      if [ ! -f "$file" ]; then
+        echo -e "The file \"$2\" does not exist."
+      else 
+        pbcopy < "$file" | printf "=> Public SSH key copied to clipboard.\n"
+      fi
+    else
+       echo -e "File not specified."
+    fi
+  ;;
+  *)
+    echo -e "parameters is error. \nNeed help? try 'copyssh -h'"
+  ;;
+  esac
+fi
