@@ -10,7 +10,7 @@
 # Author: hahapigs
 # License: MIT
 
-version="0.01_2025-04-07"
+version="0.02_2025-04-07"
 
 GITHUB_REPO_URL="https://github.com/hahapigs/work-theme/.local/bin/copyssh"
 
@@ -40,12 +40,14 @@ Write 'copyssh {public key}' to copy content.
 
 Examples:
   copyssh
-  copyssh hx-github
+  copyssh hx-github.pub
+  copyssh ~/.ssh/hx-github.pub
+  copyssh -n ~/.ssh/hx-github.pub
 
 Parameters:
-  -a show some information about this script
-  -h for some help (this page)
-  -n assign a key for copying
+  -a, --about show some information about this script
+  -h, --help  for some help (this page)
+  -n, --name  assign a key for copying
 "
 }
 
@@ -71,7 +73,7 @@ else
     if [ "$#" == "2" ]; then
       file="$2"
       if [ ! -f "$file" ]; then
-        echo -e "The file \"$2\" does not exist."
+        echo -e "The file \`$file\` does not exist."
       else 
         pbcopy < "$file" | printf "=> Public SSH key copied to clipboard.\n"
       fi
@@ -80,7 +82,12 @@ else
     fi
   ;;
   *)
-    echo -e "parameters is error. \nNeed help? try 'copyssh -h'"
+    file="$1"
+    if [ ! -f "$file" ]; then
+      echo -e "The file \`$file\` does not exist."
+    else 
+      pbcopy < "$file" | printf "=> Public SSH key copied to clipboard.\n"
+    fi
   ;;
   esac
 fi
