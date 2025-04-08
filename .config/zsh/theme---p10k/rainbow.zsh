@@ -594,7 +594,7 @@
   typeset -g POWERLEVEL9K_CUSTOM_IDIOM_BACKGROUND=135
   # 自定义提示段
   typeset -g POWERLEVEL9K_CUSTOM_IDIOM="custom_idiom"
-  # 还可以使用python脚本来显示，例如：content=$(python3 ${XDG_CONFIG_HOME:-${HOME}/.config}/zsh/theme---p10k/data/poem.py)
+  # 显示内容
   function custom_idiom() {
     local content
     if (( $+commands[fortune] )) && content=$(fortune ${XDG_CONFIG_HOME:-${HOME}/.config}/zsh/theme---p10k/data/idiom); then
