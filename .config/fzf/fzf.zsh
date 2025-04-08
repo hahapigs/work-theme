@@ -105,7 +105,7 @@ _fzf_compgen_dir() {
 # For forgit global config
 export FORGIT_FZF_DEFAULT_OPTS="
 --style full
---border-label ' 🛠️ forgit '
+--border-label ' 🏖️  forgit '
 --header-label ' branch '
 --marker='✓ '
 --bind 'focus:+transform-header:git branch --show-current || $(echo "No git")'
