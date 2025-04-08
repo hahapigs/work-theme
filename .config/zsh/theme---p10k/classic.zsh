@@ -1798,7 +1798,7 @@
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_example() {
     local content
-    if (( $+commands[fortune] )) && content=$(fortune ${XDG_CONFIG_HOME:-${HOME}/.config}/zsh/theme---p10k/data/poem.py); then
+    if (( $+commands[fortune] )) && content=$(fortune ${XDG_CONFIG_HOME:-${HOME}/.config}/zsh/theme---p10k/data/idiom); then
         p10k segment -b 1 -f 3 -i "${content}" -t ''
     else
         p10k segment -b 1 -f 3 -i '出错了！' -t ' '
