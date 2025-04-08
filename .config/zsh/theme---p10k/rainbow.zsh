@@ -597,7 +597,7 @@
   # 显示内容
   function custom_idiom() {
     local content
-    if (( $+commands[fortune] )) && content=$(fortune ${XDG_CONFIG_HOME:-${HOME}/.config}/zsh/theme---p10k/data/idiom); then
+    if (( $+commands[fortune] )) && content=$(fortune ${XDG_CONFIG_HOME:-${HOME}/.config}/fortune/idiom); then
       echo "$content \uf02d"
     else
       echo "error \uf119"

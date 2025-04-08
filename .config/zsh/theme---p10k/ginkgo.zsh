@@ -594,7 +594,7 @@
   typeset -g POWERLEVEL9K_CUSTOM_POEM_BACKGROUND=154
   # 自定义提示段
   typeset -g POWERLEVEL9K_CUSTOM_POEM="custom_poem"
-  # 显示内容, 等同于content=$(python3 ${XDG_CONFIG_HOME:-${HOME}/.config}/zsh/theme---p10k/data/poem.py)
+  # 显示内容, 等同于content=$(python3 poem.py)
   function custom_poem() {
     local content
     if (( $+commands[poem] )) && content=$(poem); then
