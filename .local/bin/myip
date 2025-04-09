@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# Script to display local and public IP addresses
+# Created: $(date)
+
+echo "============================================"
+echo "           IP ADDRESS INFORMATION           "
+echo "============================================"
+
+# Get and display local IP addresses
+echo -e "\n📡 LOCAL IP ADDRESSES:"
+echo "--------------------------------------------"
+
+# Check for WiFi (en0) interface
+if ifconfig en0 &>/dev/null; then
+    WIFI_IP=$(ifconfig en0 | grep 'inet ' | awk '{print $2}')
+    if [ -n "$WIFI_IP" ]; then
+        echo "WiFi (en0): $WIFI_IP"
+    else
+        echo "WiFi (en0): Not connected"
+    fi
+else
+    echo "WiFi (en0): Interface not available"
+fi
+
+# Check for Ethernet (en1) interface
+if ifconfig en1 &>/dev/null; then
+    ETHERNET_IP=$(ifconfig en1 | grep 'inet ' | awk '{print $2}')
+    if [ -n "$ETHERNET_IP" ]; then
+        echo "Ethernet (en1): $ETHERNET_IP"
+    else
+        echo "Ethernet (en1): Not connected"
+    fi
+else
+    echo "Ethernet (en1): Interface not available"
+fi
+
+# Check for USB Ethernet (en2) interface - sometimes present on Macs
+if ifconfig en2 &>/dev/null; then
+    USB_ETHERNET_IP=$(ifconfig en2 | grep 'inet ' | awk '{print $2}')
+    if [ -n "$USB_ETHERNET_IP" ]; then
+        echo "USB Ethernet (en2): $USB_ETHERNET_IP"
+    fi
+fi
+
+# Get and display public IP address
+echo -e "\n🌐 PUBLIC IP ADDRESS:"
+echo "--------------------------------------------"
+echo "Fetching public IP information..."
+
+# Try different services in case one fails
+if PUBLIC_IP_INFO=$(curl -s https://ipinfo.io 2>/dev/null); then
+    PUBLIC_IP=$(echo "$PUBLIC_IP_INFO" | grep -o '"ip": "[^"]*' | cut -d'"' -f4)
+    LOCATION=$(echo "$PUBLIC_IP_INFO" | grep -o '"city": "[^"]*' | cut -d'"' -f4)
+    REGION=$(echo "$PUBLIC_IP_INFO" | grep -o '"region": "[^"]*' | cut -d'"' -f4)
+    COUNTRY=$(echo "$PUBLIC_IP_INFO" | grep -o '"country": "[^"]*' | cut -d'"' -f4)
+    ISP=$(echo "$PUBLIC_IP_INFO" | grep -o '"org": "[^"]*' | cut -d'"' -f4)
+    
+    echo "IP Address: $PUBLIC_IP"
+    echo "Location: $LOCATION, $REGION, $COUNTRY"
+    echo "ISP: $ISP"
+elif PUBLIC_IP=$(curl -s https://api.ipify.org 2>/dev/null); then
+    echo "IP Address: $PUBLIC_IP"
+    echo "Location: Information not available"
+elif PUBLIC_IP=$(curl -s https://ifconfig.me 2>/dev/null); then
+    echo "IP Address: $PUBLIC_IP"
+    echo "Location: Information not available"
+else
+    echo "Could not retrieve public IP. Please check your internet connection."
+fi
+
+echo -e "\n============================================"
+
