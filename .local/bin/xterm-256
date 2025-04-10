@@ -1,0 +1,132 @@
+#!/bin/bash
+#
+# ANSI Color Display Script
+# Demonstrates terminal 256 colors
+# Usage: 256-colors
+#
+
+# Text formatting constants
+BOLD=$(printf '\033[1m')
+DIM=$(printf '\033[2m')
+ITALIC=$(printf '\033[3m')
+UNDERLINE=$(printf '\033[4m')
+BLINK=$(printf '\033[5m')
+REVERSE=$(printf '\033[7m')
+HIDDEN=$(printf '\033[8m')
+STRIKETHROUGH=$(printf '\033[9m')
+RESET=$(printf '\033[0m')
+
+# Header display function
+display_header() {
+    printf "\n%s%s%s\n" "${BOLD}" "$1" "${RESET}"
+    printf "%s\n" "$(printf '%0.s=' $(seq 1 ${#1}))"
+}
+
+##############################
+# 256 COLORS SECTION
+##############################
+
+# Function to determine if a color is light (use black text) or dark (use white text)
+is_light_color() {
+    local color=$1
+
+    # Basic determination based on color ranges
+    # Standard dark colors: 0, 1, 4, 5, 8, 16-27, etc.
+    if [ $color -eq 0 ] || [ $color -eq 1 ] || [ $color -eq 4 ] || [ $color -eq 5 ] || \
+       [ $color -eq 8 ] || [ $color -eq 16 ] || [ $color -eq 17 ] || [ $color -eq 18 ] || \
+       [ $color -eq 19 ] || [ $color -eq 20 ] || [ $color -eq 21 ] || \
+       [ $color -ge 232 ] && [ $color -le 243 ]; then
+        return 1  # Dark color, use white text
+    fi
+
+    # For all other colors, use a simplified approach
+    if [ $color -le 51 ] || \
+       [ $color -ge 90 ] && [ $color -le 93 ] || \
+       [ $color -ge 124 ] && [ $color -le 129 ] || \
+       [ $color -ge 160 ] && [ $color -le 165 ] || \
+       [ $color -ge 196 ] && [ $color -le 201 ]; then
+        return 1  # Likely dark color, use white text
+    fi
+
+    return 0  # Light color, use black text
+}
+
+# Display standard 16 colors
+printf "%sSTANDARD 16 COLORS (0-15):%s\n\n" "${BOLD}" "${RESET}"
+for i in {0..15}; do
+    if is_light_color $i; then
+        # Light background, use black text
+        printf "\033[48;5;%dm\033[30m  %3d  \033[0m " $i $i
+    else
+        # Dark background, use white text
+        printf "\033[48;5;%dm\033[97m  %3d  \033[0m " $i $i
+    fi
+    if [ $(( (i + 1) % 8 )) -eq 0 ]; then
+        echo
+    fi
+done
+echo
+
+# Display 216 colors (6x6x6 cube)
+printf "\n%s216 COLORS (6x6x6 CUBE, 16-231):%s\n\n" "${BOLD}" "${RESET}"
+for i in {16..231}; do
+    if is_light_color $i; then
+        # Light background, use black text
+        printf "\033[48;5;%dm\033[30m  %3d  \033[0m " $i $i
+    else
+        # Dark background, use white text
+        printf "\033[48;5;%dm\033[97m  %3d  \033[0m " $i $i
+    fi
+    if [ $(( (i - 15) % 6 )) -eq 0 ] || ([ $(( (i - 15) % 36 )) -eq 0 ] && [ $i -ne 16 ]) ; then
+        echo
+    fi
+done
+echo
+
+# Display grayscale colors
+printf "\n%sGRAYSCALE COLORS (232-255):%s\n\n" "${BOLD}" "${RESET}"
+for i in {232..255}; do
+    if [ $i -ge 244 ]; then
+        # Light grayscale, use black text
+        printf "\033[48;5;%dm\033[30m  %3d  \033[0m " $i $i
+    else
+        # Dark grayscale, use white text
+        printf "\033[48;5;%dm\033[97m  %3d  \033[0m " $i $i
+    fi
+    if [ $(( (i - 231) % 8 )) -eq 0 ]; then
+        echo
+    fi
+done
+echo
+
+##############################
+# USAGE INSTRUCTIONS SECTION
+##############################
+printf "\n%sTEXT EFFECTS USAGE:%s\n" "${BOLD}" "${RESET}"
+printf "  - Bold:          \\\\033[1m\n"
+printf "  - Dim:           \\\\033[2m\n"
+printf "  - Italic:        \\\\033[3m\n"
+printf "  - Underline:     \\\\033[4m\n"
+printf "  - Blink:         \\\\033[5m\n"
+printf "  - Reverse:       \\\\033[7m\n"
+printf "  - Hidden:        \\\\033[8m\n"
+printf "  - Strikethrough: \\\\033[9m\n"
+printf "  - Reset:         \\\\033[0m\n"
+
+# Basic usage instructions
+printf "\n%s256-COLOR MODE USAGE:%s\n" "${BOLD}" "${RESET}"
+printf "  - Foreground: \\\\033[38;5;<0-255>m\n"
+printf "  - Background: \\\\033[48;5;<0-255>m\n"
+printf "  - Reset:      \\\\033[0m\n"
+
+# Example
+printf "\n%sCOMBINING COLORS WITH TEXT EFFECTS:%s\n" "${BOLD}" "${RESET}"
+printf "   Example: printf \"\\\\033[38;5;196m\\\\033[48;5;82mRed text on green background\\\\033[0m\"\n"
+printf "   Result: %s\n" "$(printf '\033[38;5;196m\033[48;5;82mRed text on green background\033[0m')"
+printf "   Example: printf \"\\\\033[1m\\\\033[38;5;196m\\\\033[48;5;255mBold red on white background\\\\033[0m\"\n"
+printf "   Result: %s\n" "$(printf '\033[1m\033[38;5;196m\033[48;5;255mBold red on white background\033[0m')"
+printf "   Example: printf \"\\\\033[1m\\\\033[4m\\\\033[38;5;196mBold, Underlined Red Text\\\\033[0m\"\n"
+printf "   Result: %s\n" "$(printf '\033[1m\033[4m\033[38;5;196mBold, Underlined Red Text\033[0m')"
+printf "   Example: printf \"\\\\033[3m\\\\033[38;5;196mItalic Red Text\\\\033[0m\"\n"
+printf "   Result: %s\n\n" "$(printf '\033[3m\033[38;5;196mItalic Red Text\033[0m')"
+

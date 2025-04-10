@@ -1,0 +1,129 @@
+#!/bin/bash
+#
+# ANSI Color Display Script
+# Demonstrates terminal text effects, 16 colors
+# Usage: 16-ANSI
+#
+
+# Text formatting constants
+BOLD=$(printf '\033[1m')
+DIM=$(printf '\033[2m')
+ITALIC=$(printf '\033[3m')
+UNDERLINE=$(printf '\033[4m')
+BLINK=$(printf '\033[5m')
+REVERSE=$(printf '\033[7m')
+HIDDEN=$(printf '\033[8m')
+STRIKETHROUGH=$(printf '\033[9m')
+RESET=$(printf '\033[0m')
+
+# Header display function
+display_header() {
+    printf "\n%s%s%s\n" "${BOLD}" "$1" "${RESET}"
+    printf "%s\n" "$(printf '%0.s=' $(seq 1 ${#1}))"
+}
+
+##############################
+# TEXT EFFECTS SECTION
+##############################
+printf "%sTEXT EFFECTS:%s\n\n" "${BOLD}" "${RESET}"
+
+printf "%sNormal Text        : This is normal text\n"
+printf "%sBold Text          : This is bold text%s\n" "${BOLD}" "${RESET}"
+printf "%sDim Text           : This is dim text%s\n" "${DIM}" "${RESET}"
+printf "%sItalic Text        : This is italic text%s\n" "${ITALIC}" "${RESET}"
+printf "%sUnderlined Text    : This is underlined text%s\n" "${UNDERLINE}" "${RESET}"
+printf "%sBlinking Text      : This is blinking text%s\n" "${BLINK}" "${RESET}"
+printf "%sReversed Text      : This is reversed text%s\n" "${REVERSE}" "${RESET}"
+printf "%sHidden Text        : This is hidden text%s\n" "${HIDDEN}" "${RESET}"
+printf "%sStrikethrough Text : This is strikethrough text%s\n" "${STRIKETHROUGH}" "${RESET}"
+printf "\n%sNOTE:%s Some effects may not be supported by your terminal emulator.\n" "${BOLD}" "${RESET}"
+
+##############################
+# 16 COLORS SECTION
+##############################
+# Display 8 basic foreground colors (30-37)
+printf "\n%sBASIC FOREGROUND COLORS (30-37):%s\n\n" "${BOLD}" "${RESET}"
+for i in {30..37}; do
+    # Convert to 0-7 index for color names
+    index=$((i - 30))
+    color_names=("Black" "Red" "Green" "Yellow" "Blue" "Magenta" "Cyan" "White")
+    printf "\033[${i}m %7s \033[0m" "${color_names[$index]} ($i)"
+done
+echo
+
+# Display 8 bright foreground colors (90-97)
+printf "\n%sBRIGHT FOREGROUND COLORS (90-97):%s\n\n" "${BOLD}" "${RESET}"
+for i in {90..97}; do
+    # Convert to 0-7 index for color names
+    index=$((i - 90))
+    color_names=("Bright Black" "Bright Red" "Bright Green" "Bright Yellow" "Bright Blue" "Bright Magenta" "Bright Cyan" "Bright White")
+    printf "\033[${i}m %14s \033[0m" "${color_names[$index]} ($i)"
+done
+echo
+
+# Display 8 basic background colors (40-47)
+printf "\n%sBASIC BACKGROUND COLORS (40-47):%s\n\n" "${BOLD}" "${RESET}"
+for i in {40..47}; do
+    # Convert to 0-7 index for color names
+    index=$((i - 40))
+    color_names=("Black" "Red" "Green" "Yellow" "Blue" "Magenta" "Cyan" "White")
+
+    # Use black text on light backgrounds and white text on dark backgrounds
+    if [ $index -eq 0 ] || [ $index -eq 4 ] || [ $index -eq 5 ]; then
+        # Dark backgrounds - use white text
+        printf "\033[${i}m\033[97m %7s \033[0m " "${color_names[$index]} ($i)"
+    else
+        # Light backgrounds - use black text
+        printf "\033[${i}m\033[30m %7s \033[0m " "${color_names[$index]} ($i)"
+    fi
+done
+printf "\n"
+
+# Display 8 bright background colors (100-107)
+printf "\n%sBRIGHT BACKGROUND COLORS (100-107):%s\n\n" "${BOLD}" "${RESET}"
+for i in {100..107}; do
+    # Convert to 0-7 index for color names
+    index=$((i - 100))
+    color_names=("Bright Black" "Bright Red" "Bright Green" "Bright Yellow" "Bright Blue" "Bright Magenta" "Bright Cyan" "Bright White")
+
+    # Use black text on light backgrounds and white text on dark backgrounds
+    if [ $index -eq 0 ] || [ $index -eq 4 ] || [ $index -eq 5 ]; then
+        # Dark backgrounds - use white text
+        printf "\033[${i}m\033[97m %14s \033[0m " "${color_names[$index]} ($i)"
+    else
+        # Light backgrounds - use black text
+        printf "\033[${i}m\033[30m %14s \033[0m " "${color_names[$index]} ($i)"
+    fi
+done
+echo
+
+##############################
+# USAGE INSTRUCTIONS SECTION
+##############################
+printf "\n%sTEXT EFFECTS USAGE:%s\n" "${BOLD}" "${RESET}"
+printf "  - Bold:          \\\\033[1m\n"
+printf "  - Dim:           \\\\033[2m\n"
+printf "  - Italic:        \\\\033[3m\n"
+printf "  - Underline:     \\\\033[4m\n"
+printf "  - Blink:         \\\\033[5m\n"
+printf "  - Reverse:       \\\\033[7m\n"
+printf "  - Hidden:        \\\\033[8m\n"
+printf "  - Strikethrough: \\\\033[9m\n"
+printf "  - Reset:         \\\\033[0m\n"
+
+# Basic usage instructions
+printf "\n%s16-COLOR MODE USAGE:%s\n" "${BOLD}" "${RESET}"
+printf "  - Foreground: \\\\033[<30-37>m or \\\\033[<90-97>m (bright)\n"
+printf "  - Background: \\\\033[<40-47>m or \\\\033[<100-107>m (bright)\n"
+printf "  - Reset:      \\\\033[0m\n"
+
+# Example
+printf "\n%sCOMBINING COLORS WITH TEXT EFFECTS:%s\n" "${BOLD}" "${RESET}"
+printf "   Example: printf \"\\\\033[31m\\\\033[42mRed text on green background\\\\033[0m\"\n"
+printf "   Result: %s\n" "$(printf '\033[31m\033[42mRed text on green background\033[0m')"
+printf "   Example: printf \"\\\\033[1m\\\\033[31m\\\\033[47mBold red on white background\\\\033[0m\"\n"
+printf "   Result: %s\n" "$(printf '\033[1m\033[31m\033[47mBold red on white background\033[0m')"
+printf "   Example: printf \"\\\\033[1m\\\\033[4m\\\\033[31mBold, Underlined Red Text\\\\033[0m\"\n"
+printf "   Result: %s\n" "$(printf '\033[1m\033[4m\033[31mBold, Underlined Red Text\033[0m')"
+printf "   Example: printf \"\\\\033[3m\\\\033[31mItalic Red Text\\\\033[0m\"\n"
+printf "   Result: %s\n\n" "$(printf '\033[3m\033[31mItalic Red Text\033[0m')"

@@ -1,57 +1,83 @@
 #!/bin/bash
-set -euo pipefail
 
-CYAN="$(tput setaf 6)"
-UNDERLINE="$(tput sgr 0 1)"
-RESET="$(tput sgr0)"
+# ANSI Colors and Effects Display Script
+#
+# Usage: cls [OPTIONS]
+#
+# Options:
+#   -a, --ansi           Show 16 basic ANSI colors
+#   -x, --xterm          Show 256 color mode
+#   -c, --color <when>   When to use colors (16, 256), (alias for 'cls --16/256', or alias for 'cls 16/256')
+#   -h, --help           Show this help message
+#   -A, --about
+#
+# Examples:
+#   cls --ansi            # Show 16 basic ANSI colors
+#   cls --xterm           # Show 256 color mode
+#   cls --color 256       # Show 256 color mode
 
-title() {
-  echo
-  echo -e "${UNDERLINE}${CYAN}${1}${RESET}"
-  echo
+About() {
+echo -e "
+
+"
 }
 
-# Represent the 16 base colors in the 256-color palette
-for row in {0..15}; do
-  # Represent the 16 shades of each base color
-  for col in {0..15}; do
-    color=$((row * 16 + col))
-    color_code=$(printf "%03d" $color)
+Help() {
+echo -e "
+ANSI Colors and Effects Display Script
 
-    echo -en "\033[48;5;${color}m\033[1m $color_code \033[0m\033[38;5;${color}m\033[0m"
-  done
-  echo
-done
+Usage: cls [OPTIONS]
 
-title "Escape sequences"
+Options:
+  -a, --ansi           Show 16 basic ANSI colors
+  -x, --xterm          Show 256 color mode
+  -c, --color <when>   When to use colors (16, 256), (alias for 'cls --16/256', or alias for 'cls 16/256')
+  -h, --help           Show this help message
+  -A, --about
 
-echo "Effects:"
-echo -e "1:             \033[1mBold\033[0m"
-echo -e "2:             \033[2mDimmed\033[0m"
-echo -e "3:             \033[3mItalic\033[0m"
-echo -e "4:             \033[4mUnderline\033[0m"
-echo -e "5:             \033[5mBlinking\033[0m"
-echo -e "6:             \033[6mBlinking fast\033[0m"
-echo -e "7:             \033[7mInverted\033[0m"
-echo -e "8 (invisible): \033[8mInvisible\033[0m"
-echo
-echo "Examples:"
-echo -e "\\\033\[33;44;1m  \033[33;44;1myellow on blue, bold\033[0m \\\033\[0m"
-echo -e "\\\033\[38;5;219m \033[38;5;219m256-color foreground\033[0m \\\033\[0m"
-echo -e "\\\033\[48;5;61m  \033[48;5;61m256-color background\033[0m \\\033\[0m"
+Examples:
+  cls 16                # Show 16 basic ANSI colors
+  cls --256             # Show 256 color mode
+  cls --ansi            # Show 16 basic ANSI colors
+"
+}
 
-title "Tput commands"
+Process_argument() {
+    case $1 in
+        -A | --about)
+            About
+        ;;
+        -h | --help)
+            Help
+        ;;
+        -a | --ansi | --16 | 16)
+            ansi-16
+        ;;
+        -x | --xterm | --256 | 256)
+            xterm-256
+        ;;
+        -c | --color)
+            if [ "$2" == "16" ]; then
+                ansi-16
+            elif [ "$2" == "256" ]; then
+                xterm-256
+            else
+                echo -e "Unknown parameter \`$2\`\n"
+                echo -e "Options:\n    -c, --color <when>   When to use colors (16, 256)\n\nNeed help? try 'cls -h'"
+            fi
+        ;;
+        *)
+            echo -e "Unknown options $1. \nNeed help? try 'cls -h'"
+        ;;
 
-echo "Effects:"
-echo "bold:  $(tput bold)Bold$RESET"
-echo "dim:   $(tput dim)Dim$RESET"
-echo "sitm:  $(tput sitm)Italic$RESET"
-echo "smul:  $(tput smul)Underline$RESET"
-echo "blink: $(tput blink)Blinking$RESET"
-echo "rev:   $(tput rev)Inverted$RESET"
-echo "invis: $(tput invis)Invisible$RESET"
-echo
-echo "Examples:"
-echo "\$(tput setaf 3)\$(tput setab 4)\$(tput bold) $(tput setaf 3)$(tput setab 4)$(tput bold)$(tput)yellow on blue, bold$RESET \$(tput sgr0)"
-echo "\$(tput setaf 153)                          $(tput setaf 153)256-color foreground$RESET \$(tput sgr0)"
-echo "\$(tput setab 128)                          $(tput setab 128)256-color background$RESET \$(tput sgr0)"
+    esac
+}
+
+# Parse command-line arguments
+if [ "$#" == "0" ]; then
+    Help
+elif [ "$#" -gt "2" ]; then
+    echo -e "too many parameters. \nNeed help? try 'cls -h'"
+else
+    Process_argument "$1" "$2"
+fi
