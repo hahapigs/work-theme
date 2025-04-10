@@ -1,22 +1,25 @@
 #!/bin/bash
-
+#
 # ANSI Colors and Effects Display Script
 #
 # Usage: cls [OPTIONS]
 #
 # Options:
+#   -A, --about
+#   -h, --help           Show this help message
+#
 #   -a, --ansi           Show 16 basic ANSI colors
 #   -x, --xterm          Show 256 color mode
-#   -c, --color <when>   When to use colors (16, 256), (alias for 'cls --16/256', or alias for 'cls 16/256')
-#   -h, --help           Show this help message
-#   -A, --about
+#   -r, --rgb            Show rgb color mode
+#   -c, --color <when>   When to use colors (16, 256, rgb), (alias for 'cls --16/256/rgb', or alias for 'cls 16/256/rgb')
 #
 # Examples:
 #   cls --ansi            # Show 16 basic ANSI colors
 #   cls --xterm           # Show 256 color mode
+#   cls --rgb             # Show rgb color mode
 #   cls --color 256       # Show 256 color mode
 
-About() {
+Abou6t() {
 echo -e "
 
 "
@@ -29,16 +32,20 @@ ANSI Colors and Effects Display Script
 Usage: cls [OPTIONS]
 
 Options:
+  -A, --about
+  -h, --help           Show this help message
+
   -a, --ansi           Show 16 basic ANSI colors
   -x, --xterm          Show 256 color mode
-  -c, --color <when>   When to use colors (16, 256), (alias for 'cls --16/256', or alias for 'cls 16/256')
-  -h, --help           Show this help message
-  -A, --about
+  -r, --rgb            Show rgb color mode
+  -c, --color <when>   When to use colors (16, 256, rgb)
+                       (alias for 'cls --16/256/rgb', or alias for 'cls 16/256/rgb')
 
 Examples:
-  cls 16                # Show 16 basic ANSI colors
-  cls --256             # Show 256 color mode
   cls --ansi            # Show 16 basic ANSI colors
+  cls --xterm           # Show 256 color mode
+  cls --rgb             # Show rgb color mode
+  cls --color 256       # Show 256 color mode
 "
 }
 
@@ -56,14 +63,19 @@ Process_argument() {
         -x | --xterm | --256 | 256)
             xterm-256
         ;;
+        -r | --rgb | rgb )
+            rgb-24bit
+        ;;
         -c | --color)
             if [ "$2" == "16" ]; then
                 ansi-16
             elif [ "$2" == "256" ]; then
                 xterm-256
+            elif [ "$2" == "rgb" ]; then
+                rgb-24bit
             else
                 echo -e "Unknown parameter \`$2\`\n"
-                echo -e "Options:\n    -c, --color <when>   When to use colors (16, 256)\n\nNeed help? try 'cls -h'"
+                echo -e "Options:\n    -c, --color <when>   When to use colors (16, 256, rgb)\n\nNeed help? try 'cls -h'"
             fi
         ;;
         *)
