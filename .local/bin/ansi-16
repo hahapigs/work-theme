@@ -47,7 +47,7 @@ for i in {30..37}; do
     # Convert to 0-7 index for color names
     index=$((i - 30))
     color_names=("Black" "Red" "Green" "Yellow" "Blue" "Magenta" "Cyan" "White")
-    printf "\033[${i}m %7s \033[0m" "${color_names[$index]} ($i)"
+    printf "\033[${i}m%7s \033[0m" "${color_names[$index]} ($i)"
 done
 echo
 
@@ -57,7 +57,7 @@ for i in {90..97}; do
     # Convert to 0-7 index for color names
     index=$((i - 90))
     color_names=("Bright Black" "Bright Red" "Bright Green" "Bright Yellow" "Bright Blue" "Bright Magenta" "Bright Cyan" "Bright White")
-    printf "\033[${i}m %14s \033[0m" "${color_names[$index]} ($i)"
+    printf "\033[${i}m%14s \033[0m" "${color_names[$index]} ($i)"
 done
 echo
 
