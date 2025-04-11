@@ -84,6 +84,8 @@ show_help() {
     echo
     echo -e "\033[1mSpecial URLs:\033[0m"
     echo -e "  curl https://wttr.in/:help   # show wttr.in page"
+    echo
+    echo -e "Any bugs? Any suggestions? Contact information at https://github.com/hahapigs/work-theme"
 }
 
 # Get default city (without auto-creating directory)
