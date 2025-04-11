@@ -87,7 +87,7 @@ Process_argument() {
 
 # Parse command-line arguments
 if [ "$#" == "0" ]; then
-    Help
+    ansi-16
 elif [ "$#" -gt "2" ]; then
     echo -e "too many parameters. \nNeed help? try 'cls -h'"
 else
