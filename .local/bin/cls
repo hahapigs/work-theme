@@ -19,7 +19,7 @@
 #   cls --rgb             # Show rgb color mode
 #   cls --color 256       # Show 256 color mode
 
-Abou6t() {
+About() {
 echo -e "
 
 "
