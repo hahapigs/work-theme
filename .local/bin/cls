@@ -19,9 +19,27 @@
 #   cls --rgb             # Show rgb color mode
 #   cls --color 256       # Show 256 color mode
 
-About() {
-echo -e "
+# version
+wttr_ver="0.02_2025-04-12"
+# github
+GITHUB_REPO_URL="https://github.com/hahapigs/work-theme"
 
+About()
+{
+echo -e "
+About the
+
+ ██████╗ ██████╗ ██╗      ██████╗ ██████╗ ███████╗
+██╔════╝██╔═══██╗██║     ██╔═══██╗██╔══██╗██╔════╝
+██║     ██║   ██║██║     ██║   ██║██████╔╝███████╗
+██║     ██║   ██║██║     ██║   ██║██╔══██╗╚════██║
+╚██████╗╚██████╔╝███████╗╚██████╔╝██║  ██║███████║
+ ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+                                script by hahapigs
+
+This is a simple bash script to show color condition
+
+Source is available on Github: $GITHUB_REPO_URL
 "
 }
 
@@ -52,7 +70,7 @@ Examples:
 Process_argument() {
     case $1 in
         -A | --about)
-            About
+           command -v lolcat &>/dev/null && About | lolcat || About
         ;;
         -h | --help)
             Help
