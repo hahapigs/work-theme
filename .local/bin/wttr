@@ -9,7 +9,7 @@
 set -e
 
 # version
-wttr_ver="0.01_2025-04-11"
+wttr_ver="0.02_2025-04-13"
 # github
 GITHUB_REPO_URL="https://github.com/hahapigs/work-theme"
 
@@ -22,7 +22,7 @@ URL_v1="https://wttr.in"    # Standard wttr.in endpoint with full features
 URL_v2="https://v2.wttr.in" # Alternative v2 endpoint with different formatting
 URL_v3="https://v3.wttr.in" # Latest v3 endpoint with enhanced features
 
-show_about()
+__show_about()
 {
 echo -e "
 About the
@@ -44,7 +44,7 @@ Source is available on Github: $GITHUB_REPO_URL
 }
 
 # Display help information
-show_help() {
+__show_help() {
     echo -e "\033[1mwttr - Command-line weather client for wttr.in\033[0m"
     echo
     echo -e "\033[1mUsage:\033[0m"
@@ -57,7 +57,7 @@ show_help() {
     echo -e "  \033[1m-f, --format NUMBER\033[0m   Specify output format (number 1-4 or placeholders)"
     echo -e "  \033[1m-h, --help\033[0m            Display this help information"
     echo -e "  \033[1m-l, --lang LANGUAGE\033[0m   Set language (zh-cn/en-us)"
-    echo -e "  \033[1m-r, --remove\033[0m          Remove configuration files"
+    echo -e "  \033[1m-r, --remove\033[0m          remove configuration files"
     echo -e "  \033[1m--sdef CITY\033[0m           Set default city for future queries"
     echo -e "  \033[1m--tmux \033[0m               Supports tmux"
     echo -e "  \033[1m-v2\033[0m                   Use v2.wttr.in API endpoint"
@@ -89,7 +89,7 @@ show_help() {
 }
 
 # Get default city (without auto-creating directory)
-get_default_city() {
+__get_default_city() {
     if [[ -f "$DEFAULT_CITY_FILE" ]]; then
         local city=$(head -n 1 "$DEFAULT_CITY_FILE" | tr -d '[:space:]')
         if [[ -n "$city" ]]; then
@@ -102,7 +102,7 @@ get_default_city() {
 }
 
 # Set default city (only creates directory at this time)
-set_default_city() {
+__set_default_city() {
     mkdir -p "$CONFIG_DIR"
     echo "$1" > "$DEFAULT_CITY_FILE"
     echo -e "Default city set to: \033[1m$1\033[0m"
@@ -110,7 +110,7 @@ set_default_city() {
 }
 
 # Validate language parameter
-validate_lang() {
+__validate_lang() {
     case "$1" in
         zh-cn|en-us) return 0 ;;
         *)
@@ -121,7 +121,7 @@ validate_lang() {
 }
 
 # Validate view parameter
-validate_view() {
+__validate_view() {
     case "$1" in
         0|1|2) return 0 ;;
         *)
@@ -132,7 +132,7 @@ validate_view() {
 }
 
 # Validate format placeholders
-validate_format() {
+__validate_format() {
     local format="$1"
 
     # Validate numeric format options (1-4)
@@ -144,11 +144,11 @@ validate_format() {
     exit 1
 }
 
-# Remove default configuration
-remove() {
+# __remove default configuration
+__remove() {
     if [[ -d "$CONFIG_DIR" ]]; then
         rm -rf "$CONFIG_DIR"
-        echo -e "\033[1mConfiguration directory removed: $CONFIG_DIR\033[0m"
+        echo -e "\033[1mConfiguration directory __removed: $CONFIG_DIR\033[0m"
     else
         echo -e "\033[1mConfiguration directory not found\033[0m"
     fi
@@ -161,18 +161,18 @@ city=""
 view=""
 format=""
 lang=""
-__tmux=""
+is_tmux=""
 url="$URL_v1"  # Default to standard API
 positional=()
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
         -A|--about)
-            command -v lolcat &>/dev/null && show_about | lolcat || show_about
+            command -v lolcat &>/dev/null && __show_about | lolcat || __show_about
             exit 0
         ;;
         -h|--help)
-            show_help
+            __show_help
             exit 0
         ;;
         -v|--version)
@@ -182,7 +182,7 @@ while [[ $# -gt 0 ]]; do
         -c|--city)
             if [[ -z "$2" ]]; then
                 echo -e "Error: Please provide a city name" >&2
-                show_help
+                __show_help
                 exit 1
             fi
             city="$2"
@@ -191,30 +191,30 @@ while [[ $# -gt 0 ]]; do
         -V|--view)
             if [[ -z "$2" ]]; then
                 echo -e "Error: Please provide a view parameter" >&2
-                show_help
+                __show_help
                 exit 1
             fi
-            validate_view "$2"
+            __validate_view "$2"
             view="$2"
             shift 2
         ;;
         -f|--format)
             if [[ -z "$2" ]]; then
                 echo -e "Error: Please provide a format parameter" >&2
-                show_help
+                __show_help
                 exit 1
             fi
-            validate_format "$2"
+            __validate_format "$2"
             format="$2"
             shift 2
         ;;
         -l|--lang)
             if [[ -z "$2" ]]; then
                 echo -e "Error: Please provide a language parameter" >&2
-                show_help
+                __show_help
                 exit 1
             fi
-            validate_lang "$2"
+            __validate_lang "$2"
             lang="$2"
             shift 2
         ;;
@@ -229,23 +229,23 @@ while [[ $# -gt 0 ]]; do
         --sdef)
             if [[ -z "$2" ]]; then
                 echo -e "Error: Please provide a default city name" >&2
-                show_help
+                __show_help
                 exit 1
             fi
-            set_default_city "$2"
+            __set_default_city "$2"
             exit 0
         ;;
         --tmux)
-            __tmux=true
+            is_tmux=true
             format=3
             shift
         ;;
         -r|--remove)
-            remove
+            __remove
         ;;
         -*)
             echo -e "Error: Unknown option \033[1m$1\033[0m" >&2
-            show_help
+            __show_help
             exit 1
         ;;
         *)
@@ -261,14 +261,14 @@ if [[ ${#positional[@]} -gt 0 ]]; then
         city="${positional[0]}"
     else
         echo -e "Error: Excess parameters '${positional[*]}'" >&2
-        show_help
+        __show_help
         exit 1
     fi
 fi
 
 # Get default city (if not specified and needed)
 if [[ -z "$city" ]]; then
-    city=$(get_default_city)
+    city=$(__get_default_city)
     city=${city// /+}
     city=${city//[^a-zA-Z0-9+]}
 fi
@@ -281,5 +281,5 @@ params=()
 params+=("F")  # Add 'F' as a default parameter (Fahrenheit to Celsius conversion)
 
 # Call the API
-[[ $__tmux ]] && curl -f -s -m 2 ${url}/${city}?$(IFS='&'; echo "${params[*]}") && exit 0
+[[ $is_tmux ]] && curl -f -s -m 2 ${url}/${city}?$(IFS='&'; echo "${params[*]}") && exit 0
 curl -s ${url}/${city}?$(IFS='&'; echo "${params[*]}")
