@@ -20,7 +20,7 @@
 #   cls --color 256       # Show 256 color mode
 
 # version
-wttr_ver="0.02_2025-04-12"
+wttr_ver="0.03_2025-04-13"
 # github
 GITHUB_REPO_URL="https://github.com/hahapigs/work-theme"
 
