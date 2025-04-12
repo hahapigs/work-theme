@@ -24,8 +24,7 @@ wttr_ver="0.02_2025-04-12"
 # github
 GITHUB_REPO_URL="https://github.com/hahapigs/work-theme"
 
-About()
-{
+__show_about() {
 echo -e "
 About the
 
@@ -43,7 +42,7 @@ Source is available on Github: $GITHUB_REPO_URL
 "
 }
 
-Help() {
+__show_help() {
 echo -e "
 ANSI Colors and Effects Display Script
 
@@ -67,13 +66,13 @@ Examples:
 "
 }
 
-Process_argument() {
+__process_argument() {
     case $1 in
         -A | --about)
-           command -v lolcat &>/dev/null && About | lolcat || About
+           command -v lolcat &>/dev/null && __show_about | lolcat || __show_about
         ;;
         -h | --help)
-            Help
+           __show_help
         ;;
         -a | --ansi | --16 | 16)
             ansi-16
@@ -109,5 +108,5 @@ if [ "$#" == "0" ]; then
 elif [ "$#" -gt "2" ]; then
     echo -e "too many parameters. \nNeed help? try 'cls -h'"
 else
-    Process_argument "$1" "$2"
+   __process_argument "$1" "$2"
 fi
