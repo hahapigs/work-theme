@@ -10,11 +10,11 @@
 # Author: hahapigs
 # License: MIT
 
-version="0.02_2025-04-07"
+version="0.03_2025-04-14"
 
-GITHUB_REPO_URL="https://github.com/hahapigs/work-theme/.local/bin/copyssh"
+GITHUB_REPO_URL="https://github.com/hahapigs/work-theme"
 
-About()
+__about()
 {
 echo -e "
 About the
@@ -33,7 +33,7 @@ Source is available on Github: $GITHUB_REPO_URL
 "
 }
 
-Help()
+__help()
 {
 echo -e "
 Write 'copyssh {public key}' to copy content.
@@ -63,11 +63,11 @@ elif [ "$#" -gt "2" ]; then
   echo -e "too many parameters. \nNeed help? try 'copyssh -h'"
 else
   case $1 in
-  -a | --about)
-    About
+  -A | --about)
+    command -v lolcat &>/dev/null && __about | lolcat || __about
   ;;
   -h | --help)
-    Help
+    __help
   ;;
   -n | --name)
     if [ "$#" == "2" ]; then
