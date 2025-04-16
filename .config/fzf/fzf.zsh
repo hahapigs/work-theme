@@ -37,7 +37,7 @@ export FZF_CTRL_T_OPTS="
 --prompt '> '
 --marker='✓ '
 --bind 'focus:+transform-header:file --brief {} || $(echo "No file selected")'
---bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'    # Copy to clipboard
+--bind 'ctrl-y:execute-silent(echo -n {} | pbcopy)+abort'       # Copy to clipboard
 --bind 'ctrl-e:execute(echo {+} | xargs -o vim)'                # Open in vim
 --bind 'ctrl-v:execute(code {+})'                               # Open in VS Code
 --bind 'ctrl-a:select-all'                                      # Select all items
