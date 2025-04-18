@@ -38,10 +38,10 @@ export FZF_CTRL_T_OPTS="
 --marker='✓ '
 --bind 'focus:+transform-header:file --brief {} || $(echo "No file selected")'
 --bind 'ctrl-y:execute-silent(echo -n {} | pbcopy)+abort'       # Copy to clipboard
---bind 'ctrl-e:execute(echo {+} | xargs -o vim)'                # Open in vim
+--bind 'ctrl-e:execute(echo {+} | xargs -o nvim)'               # Open in nvim
 --bind 'ctrl-v:execute(code {+})'                               # Open in VS Code
 --bind 'ctrl-a:select-all'                                      # Select all items
---bind 'enter:execute(echo {+} | xargs -o vim)'                 # Default open in vim
+--bind 'enter:execute(echo {+} | xargs -o nvim)'                # Default open in nvim
 --bind '?:reload(echo \$(\${FZF_HOME}/fzf_ignore.sh fd) | xargs fd --type f --color always)'
 --bind '>:reload(eval \${FZF_CTRL_T_COMMAND})'
 "
