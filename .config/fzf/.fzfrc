@@ -10,7 +10,7 @@
 --color 'bg:#1e1e2e,bg+:#313244'
 --color 'fg:#cdd6f4,fg+:#cdd6f4'
 --color 'hl:214,hl+:76'
---color 'border:#aaaaaa,label:#cccccc,gutter:8'
+--color 'border:#aaaaaa,label:#cccccc,gutter:#1e1e2e'
 --color 'input-border:#996666,input-label:#ffcccc'
 --color 'header:#f38ba8,header-border:#6699cc,header-label:#99ccff'
 --color 'list-border:#669966,list-label:#99cc99'
@@ -57,7 +57,7 @@
 ####################
 ## Input Section
 ####################
---prompt ' '
+--prompt '> '
 --info inline-right:'< '
 --separator '-'
 --no-separator
